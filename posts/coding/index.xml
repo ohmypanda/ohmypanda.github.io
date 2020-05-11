@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>楽土 on 焉知非鱼</title>
+    <link>https://ohmypanda.github.io/posts/coding/</link>
+    <description>Recent content in 楽土 on 焉知非鱼</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 06 May 2020 14:14:08 +0800</lastBuildDate>
+    
+	<atom:link href="https://ohmypanda.github.io/posts/coding/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用 %% 提取文本块儿</title>
+      <link>https://ohmypanda.github.io/extract-sections-with-double-percent/</link>
+      <pubDate>Wed, 06 May 2020 14:14:08 +0800</pubDate>
+      
+      <guid>https://ohmypanda.github.io/extract-sections-with-double-percent/</guid>
+      <description>数据样例 section.txt 中的本文为样例数据: 123,456,789 =begin code 999,333,666 145,123,120 =end code 10,20,30 10,10,10 =begin code 567,555,578 678,679,665 710,720,715 =end code 321,654,987 =begin code 312,555 =end code 要求把 =begin code 和 =end code 之间的所有数字分别提取出来。 Grammar Grammar 的结构如下, 其中 Section 目录下分别是 Grammar 和 Action 模块, data 目录下是样例数据 section.txt: ├── Section │ ├── Actions.pm6 │ └── Grammar.pm6 ├── data │ ├── section.txt ├── extract-section.p6 use Grammar::Debugger; use Grammar::Tracer; unit grammar Section::Grammar; token TOP { ^ &amp;lt;section&amp;gt;+ %% &amp;lt;separator&amp;gt; $ } token section { &amp;lt;line&amp;gt;+ } token line { ^^ [\d+]+ %% &#39;,&#39; $$ \n } token separator { | ^^ &#39;=begin code&#39; $$ \n | ^^ &#39;=end code&#39; $$ \n* } 其中 Grammar::Debugger 和 Grammar::Tracer 模块用于调试 grammar, 需要放在 grammar 模块的行首: use Grammar::Debugger; use Grammar::Tracer; Action unit class Section::Actions; method TOP($/) { make $/.values».made; } method section($/) { make ~$/.trim; } method line($/) { make ~$/.trim; } method separator($/) { make Empty; } 解析 不使用 Action use lib &#39;.&#39;; use Section::Grammar; my $parsed = Section::Grammar.parsefile(@*ARGS[0] // &#39;data/section.txt&#39;); .Str.say for $parsed&amp;lt;section&amp;gt;; 输出 123,456,789 999,333,666 145,123,120 10,20,30 10,10,10 567,555,578 678,679,665 710,720,715 321,654,987 312,555 使用 Action use lib &#39;.&#39;; use Section::Grammar; use Section::Actions; my $parsed = Section::Grammar.parsefile( @*ARGS[0] // &#39;data/section.txt&#39;, :actions(Section::Actions) ).made; .Str.say for @$parsed; 输出 123,456,789 999,333,666 145,123,120 10,20,30 10,10,10 567,555,578 678,679,665 710,720,715 321,654,987 312,555</description>
+    </item>
+    
+    <item>
+      <title>再用 %% 提取文本块儿</title>
+      <link>https://ohmypanda.github.io/extract-sections-again/</link>
+      <pubDate>Wed, 06 May 2020 14:14:08 +0800</pubDate>
+      
+      <guid>https://ohmypanda.github.io/extract-sections-again/</guid>
+      <description>数据样例 Here&#39;s some unimportant text. =begin code This code block is what we&#39;re after. We&#39;ll use &#39;ff&#39; to get it. =end code More unimportant text. =begin code I want this line. and this line as well. HaHa. =end code More unimport text. =begin code Let&#39;s to go home. =end code Grammar use Grammar::Debugger; use Grammar::Tracer; unit grammar Range::Grammar; token TOP { ^ &amp;lt;un-important-line&amp;gt;+ %% &amp;lt;section&amp;gt; $ } token section { &amp;lt;begin&amp;gt; ~ &amp;lt;end&amp;gt; &amp;lt;line&amp;gt;+? } token un-important-line { ^^ \N+ )&amp;gt; \n* } token line { ^^ \N+ )&amp;gt; \n* } token begin { ^^ &#39;=begin code&#39; $$ \n* } token end { ^^ &#39;=end code&#39; $$ \n* } Action unit class Range::Actions; method TOP($/) { make $/.values».made; } method section($/) { make $/&amp;lt;line&amp;gt;».made; } method line($/) { make ~$/.trim; } method un-important-line($/) { make Empty; } method begin($/) { make Empty; } method end($/) { make Empty; } 提取 #!/usr/bin/env perl6 use lib &#39;.&#39;; use Range::Grammar; use Range::Actions; my $parsed = Range::Grammar.parsefile( @*ARGS[0] // &#39;data/flip-flop.txt&#39;, :actions(Range::Actions) ).made; for @$parsed -&amp;gt; $line { say $line.raku; say &#39;-&#39; x 35; } 输出 $[&amp;quot;This code block is what we&#39;re after.&amp;quot;, &amp;quot;We&#39;ll use &#39;ff&#39; to get it.&amp;quot;] ----------------------------------- $[&amp;quot;I want this line.&amp;quot;, &amp;quot;and this line as well.&amp;quot;, &amp;quot;HaHa.&amp;quot;] ----------------------------------- $[&amp;quot;Let&#39;s to go home.&amp;quot;] -----------------------------------</description>
+    </item>
+    
+    <item>
+      <title>提取文本块儿</title>
+      <link>https://ohmypanda.github.io/extract-sections/</link>
+      <pubDate>Tue, 05 May 2020 22:11:48 +0800</pubDate>
+      
+      <guid>https://ohmypanda.github.io/extract-sections/</guid>
+      <description>数据样例 Here&#39;s some unimportant text. =begin code This code block is what we&#39;re after. We&#39;ll use &#39;ff&#39; to get it. =end code More unimportant text. =begin code I want this line. and this line as well. HaHa =end code More unimport text. =begin code Let&#39;s to go home. =end code 要求提取 =begin code 和 =end code 之间的文本块儿。 Grammar grammar ExtractSection { token start { ^^ &#39;=begin code&#39; \n } token finish { ^^ &#39;=end code&#39; \n } token line { ^^ \N+)&amp;gt; \n } token section { &amp;lt;start&amp;gt; ~ &amp;lt;finish&amp;gt; &amp;lt;line&amp;gt;+? } token comment { ^^\N+ \n } token TOP { [&amp;lt;section&amp;gt; || &amp;lt;comment&amp;gt;]+ } } Action class ExtractSectionAction { method TOP($/) { make @&amp;lt;section&amp;gt;».ast.List } method section($/) { make ~«@&amp;lt;line&amp;gt;.List } method line($/) { make ~$/.trim } method comment($/) { make Empty } } 提取 my $em = ExtractSection.parse( $excerpt, :actions(ExtractSectionAction) ).ast; for @$em -&amp;gt; $line { say $line.perl; say &#39;-&#39; x 35; } 输出 $(&amp;quot;This code block is what we&#39;re after.&amp;quot;, &amp;quot;We&#39;ll use &#39;ff&#39; to get it.&amp;quot;) ----------------------------------- $(&amp;quot;I want this line.&amp;quot;, &amp;quot;and this line as well.&amp;quot;, &amp;quot;HaHa&amp;quot;) ----------------------------------- $(&amp;quot;Let&#39;s to go home.&amp;quot;,) -----------------------------------</description>
+    </item>
+    
+    <item>
+      <title>子解析</title>
+      <link>https://ohmypanda.github.io/subparse/</link>
+      <pubDate>Tue, 05 May 2020 21:51:42 +0800</pubDate>
+      
+      <guid>https://ohmypanda.github.io/subparse/</guid>
+      <description>子解析 游标不一定要到达字符串的末尾才算成功。也就是说，它不一定要匹配整个字符串。 subparse 总是返回一个 Match 对象 method subparse( $target, :$rule = &#39;TOP&#39;, Capture() :$args = \(), Mu :$actions = Mu, *%opt ) Grammar grammar RepeatChar { token start($character) { $character+ } } 解析 say RepeatChar.subparse( &#39;bbbabb&#39;, :rule(&#39;start&#39;), :args(\(&#39;b&#39;)) ); # ｢bbb｣ say RepeatChar.parse( &#39;bbbabb&#39;, :rule(&#39;start&#39;), :args(\(&#39;b&#39;)) ); # Nil say RepeatChar.subparse( &#39;bbbabb&#39;, :rule(&#39;start&#39;), :args(\(&#39;a&#39;)) ); # &amp;lt;failed match&amp;gt; say RepeatChar.subparse( &#39;bbbabb&#39;, :rule(&#39;start&#39;), :args(\(&#39;a&#39;)), :pos(3) ); # ｢a｣</description>
+    </item>
+    
+    <item>
+      <title>解析结构化文本</title>
+      <link>https://ohmypanda.github.io/parse-structured-text/</link>
+      <pubDate>Tue, 05 May 2020 21:46:27 +0800</pubDate>
+      
+      <guid>https://ohmypanda.github.io/parse-structured-text/</guid>
+      <description>数据样例 [28/04/2015 12:32] Title1 content line 1 content line 2 content line 3 content line 4 content line 5 [28/04/2015 12:16] Title2 content line 6 content line 7 [27/04/2015 17:30] ​Title3 content line 8 content line 9 content line 10 Grammar grammar StructedText { token TOP { ^ &amp;lt;entry&amp;gt;+ $ } token entry { &amp;lt;head&amp;gt; \s* # 每一项有一个标题 &amp;lt;line&amp;gt;+ \s* # 每个标题下面有很多行 } token head { &#39;[&#39; &amp;lt;datetime&amp;gt; &#39;]&#39; \s+ &amp;lt;title&amp;gt; } token datetime { &amp;lt;filedate&amp;gt; \s+ &amp;lt;filetime&amp;gt; } token filedate { [\d+]+ % &#39;/&#39; } token filetime { [\d+]+ % &#39;:&#39; } token title { \N+ } token line { [ &amp;lt;!head&amp;gt; # 前面不是 head 标题 . # 点号匹配换行符 ]+ } } Action class StructedText::Actions { method line ($/) { $/.make: ~$/ } method filedate($/) { $/.make: ~$/.subst(rx/&amp;lt;[:/]&amp;gt;/, &#39;-&#39;, :g) } method head ($/) { $/.make: ~$/.subst(rx/&amp;lt;[:/]&amp;gt;/, &#39;-&#39;, :g) } method entry ($/) { make $&amp;lt;head&amp;gt;.ast =&amp;gt; $&amp;lt;line&amp;gt;».made; } method TOP ($/) { $/.make: $&amp;lt;entry&amp;gt;».ast; } } 解析 my $actions = StructedText::Actions.new; my $parsed = StructedText.parsefile(&#39;sample.txt&#39;, :$actions).made; if $parsed { for @$parsed -&amp;gt; $e { my $filename = ~$e.key.match(/&#39;[&#39; &amp;lt;( &amp;lt;-[\[\]]&amp;gt;+ )&amp;gt; &#39;]&#39;/) ~ &amp;quot;.txt&amp;quot;; my $fh = open $filename, :w; $fh.say: ~$e.key; for $e.value -&amp;gt; $v { $fh.say: $v; } $fh.close; say &amp;quot;生成文件 $filename &amp;quot;; } }</description>
+    </item>
+    
+  </channel>
+</rss>

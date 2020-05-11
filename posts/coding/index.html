@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+      <title>楽土 :: 焉知非鱼</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<meta name="referrer" content="never" />
+<link rel="canonical" href="https://ohmypanda.github.io/posts/coding/" />
+<link rel="stylesheet" href="https://ohmypanda.github.io/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:500&display=swap" media="print" onload="this.media='all'">
+<link rel="shortcut icon" href="https://ohmypanda.github.io/favicon.ico">
+
+<meta property="og:title" content="楽土" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ohmypanda.github.io/posts/coding/" />
+<meta property="og:updated_time" content="2020-05-06T14:14:08+08:00" />
+
+
+<link rel="alternate" type="application/rss+xml" href="/posts/coding/index.xml" title="焉知非鱼" />
+
+    
+  
+  
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://ohmypanda.github.io" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__text">焉知非鱼</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu hidden">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/archives/">归档</a></li>
+        
+      
+        
+          <li><a href="/about/">关于</a></li>
+        
+      
+        
+          <li><a href="/tags/">标签</a></li>
+        
+      
+    
+
+                <li><a href="/search/"><svg t="1556783211810" class="search-box-icon" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2078" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"></style></defs><path d="M981.39652054 920.86314525L704.56522859 644.0318533a366.65501012 366.65501012 0 1 0-61.73503038 65.64040943L917.55859375 984.40065827z m-856.17925347-493.12920861a284.19142939 284.19142939 0 1 1 283.89101562 284.19142939A284.49184317 284.49184317 0 0 1 125.06706019 427.73393664z" fill="" p-id="2079" data-spm-anchor-id="a313x.7781069.0.i2"></path></svg></a></li>
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/archives/">归档</a></li>
+      
+    
+      
+        <li><a href="/about/">关于</a></li>
+      
+    
+      
+        <li><a href="/tags/">标签</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  
+  
+  
+
+  <div class="posts">
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/extract-sections-with-double-percent/">使用 %% 提取文本块儿</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-06 14:14:08
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<p>section.txt 中的本文为样例数据:</p>
+<pre><code>123,456,789
+=begin code
+999,333,666
+145,123,120
+=end code
+10,20,30
+10,10,10
+=begin code
+567,555,578
+678,679,665
+710,720,715
+=end code
+321,654,987
+=begin code
+312,555
+=end code
+</code></pre><p>要求把 <code>=begin code</code> 和 <code>=end code</code> 之间的所有数字分别提取出来。</p>
+<h3 id="grammar">Grammar</h3>
+<p>Grammar 的结构如下, 其中 Section 目录下分别是 Grammar 和 Action 模块, data 目录下是样例数据 section.txt:</p>
+<pre><code>├── Section
+│   ├── Actions.pm6
+│   └── Grammar.pm6
+├── data
+│   ├── section.txt
+├── extract-section.p6
+</code></pre><pre><code class="language-perl6" data-lang="perl6">use Grammar::Debugger;
+use Grammar::Tracer;
+
+unit grammar Section::Grammar;
+
+token TOP {
+   ^  &lt;section&gt;+ %% &lt;separator&gt; $
+}
+
+token section {
+    &lt;line&gt;+
+}
+
+token line {
+   ^^ [\d+]+ %% ',' $$ \n
+}
+
+token separator {
+    |  ^^ '=begin code' $$ \n
+    |  ^^ '=end code' $$ \n*
+}
+</code></pre><p>其中 <code>Grammar::Debugger</code> 和 <code>Grammar::Tracer</code> 模块用于调试 grammar, 需要放在 grammar 模块的行首:</p>
+<pre><code class="language-perl6" data-lang="perl6">use Grammar::Debugger;
+use Grammar::Tracer;
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">unit class Section::Actions;
+
+method TOP($/) {
+     make $/.values».made;
+}
+
+method section($/) {
+    make ~$/.trim;
+}
+
+method line($/) {
+    make ~$/.trim;
+}
+
+method separator($/) {
+    make Empty;
+}
+</code></pre><h3 id="解析">解析</h3>
+<h4 id="不使用-action">不使用 Action</h4>
+<pre><code class="language-perl6" data-lang="perl6">use lib '.';
+use Section::Grammar;
+
+my $parsed = Section::Grammar.parsefile(@*ARGS[0] // 'data/section.txt');
+.Str.say for $parsed&lt;section&gt;;
+</code></pre><h4 id="输出">输出</h4>
+<pre><code>123,456,789
+
+999,333,666
+145,123,120
+
+10,20,30
+10,10,10
+
+567,555,578
+678,679,665
+710,720,715
+
+321,654,987
+
+312,555
+</code></pre><h4 id="使用-action">使用 Action</h4>
+<pre><code class="language-perl6" data-lang="perl6">use lib '.';
+use Section::Grammar;
+use Section::Actions;
+
+my $parsed = Section::Grammar.parsefile(
+    @*ARGS[0] // 'data/section.txt',
+    :actions(Section::Actions)
+).made;
+
+.Str.say for @$parsed;
+</code></pre><h4 id="输出-1">输出</h4>
+<pre><code>123,456,789
+999,333,666
+145,123,120
+10,20,30
+10,10,10
+567,555,578
+678,679,665
+710,720,715
+321,654,987
+312,555
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/extract-sections-again/">再用 %% 提取文本块儿</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-06 14:14:08
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>Here's some unimportant text.
+=begin code
+This code block is what we're after.
+We'll use 'ff' to get it.
+=end code
+More unimportant text.
+=begin code
+I want this line.
+and this line as well.
+HaHa.
+=end code
+More unimport text.
+=begin code
+Let's to go home.
+=end code
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">use Grammar::Debugger;
+use Grammar::Tracer;
+
+unit grammar Range::Grammar;
+
+token TOP {
+   ^  &lt;un-important-line&gt;+ %% &lt;section&gt; $
+}
+
+token section {
+   &lt;begin&gt; ~ &lt;end&gt; &lt;line&gt;+?
+}
+
+token un-important-line {
+    ^^ \N+ )&gt; \n*
+}
+
+token line {
+    ^^ \N+ )&gt; \n*
+}
+
+token begin {
+    ^^ '=begin code' $$ \n*
+}
+
+token end {
+    ^^ '=end code' $$ \n*
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">unit class Range::Actions;
+
+method TOP($/) {
+     make $/.values».made;
+}
+
+method section($/) {
+    make $/&lt;line&gt;».made;
+}
+
+method line($/) {
+    make ~$/.trim;
+}
+
+method un-important-line($/) {
+    make Empty;
+}
+
+method begin($/) {
+    make Empty;
+}
+
+method end($/) {
+    make Empty;
+}
+</code></pre><h3 id="提取">提取</h3>
+<pre><code class="language-perl6" data-lang="perl6">#!/usr/bin/env perl6
+
+use lib '.';
+use Range::Grammar;
+use Range::Actions;
+
+my $parsed = Range::Grammar.parsefile(
+        @*ARGS[0] // 'data/flip-flop.txt',
+        :actions(Range::Actions)
+        ).made;
+
+for @$parsed -&gt; $line {
+    say $line.raku;
+    say '-' x 35;
+}
+</code></pre><h3 id="输出">输出</h3>
+<pre><code>$[&quot;This code block is what we're after.&quot;, &quot;We'll use 'ff' to get it.&quot;]
+-----------------------------------
+$[&quot;I want this line.&quot;, &quot;and this line as well.&quot;, &quot;HaHa.&quot;]
+-----------------------------------
+$[&quot;Let's to go home.&quot;]
+-----------------------------------
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/extract-sections/">提取文本块儿</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 22:11:48
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>Here's some unimportant text.
+=begin code
+This code block is what we're after.
+We'll use 'ff' to get it.
+=end code
+More unimportant text.
+=begin code
+I want this line.
+and this line as well.
+HaHa
+=end code
+More unimport text.
+=begin code
+Let's to go home.
+=end code
+</code></pre><p>要求提取 <code>=begin code</code> 和 <code>=end code</code> 之间的文本块儿。</p>
+<h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar ExtractSection {
+  token start   { ^^ '=begin code' \n          }
+  token finish  { ^^ '=end code' \n            }
+  token line    { ^^ \N+)&gt; \n                  }
+  token section { &lt;start&gt; ~ &lt;finish&gt; &lt;line&gt;+?  }
+  token comment { ^^\N+ \n                     }
+  token TOP     { [&lt;section&gt; || &lt;comment&gt;]+    } 
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class ExtractSectionAction {
+    method TOP($/)     { make @&lt;section&gt;».ast.List }
+    method section($/) { make ~«@&lt;line&gt;.List       }
+    method line($/)    { make ~$/.trim             }
+    method comment($/) { make Empty                }
+}
+</code></pre><h3 id="提取">提取</h3>
+<pre><code class="language-perl6" data-lang="perl6">my $em = ExtractSection.parse(
+    $excerpt, 
+    :actions(ExtractSectionAction)
+).ast;
+
+for @$em -&gt; $line {
+    say $line.perl;
+    say '-' x 35;
+}
+</code></pre><h3 id="输出">输出</h3>
+<pre><code>$(&quot;This code block is what we're after.&quot;, &quot;We'll use 'ff' to get it.&quot;)
+-----------------------------------
+$(&quot;I want this line.&quot;, &quot;and this line as well.&quot;, &quot;HaHa&quot;)
+-----------------------------------
+$(&quot;Let's to go home.&quot;,)
+-----------------------------------
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/subparse/">子解析</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 21:51:42
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="子解析">子解析</h3>
+<p>游标不一定要到达字符串的末尾才算成功。也就是说，它不一定要匹配整个字符串。</p>
+<p><code>subparse</code> 总是返回一个 <strong>Match</strong> 对象</p>
+<pre><code class="language-perl6" data-lang="perl6">method subparse(
+    $target, 
+    :$rule = 'TOP', 
+    Capture() :$args = \(),  
+    Mu :$actions = Mu, 
+    *%opt
+)
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar RepeatChar {
+    token start($character) { $character+ }
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">say RepeatChar.subparse(
+    'bbbabb', 
+    :rule('start'), 
+    :args(\('b'))
+);          # ｢bbb｣
+
+say RepeatChar.parse(
+    'bbbabb', 
+    :rule('start'), 
+    :args(\('b'))
+);          # Nil
+
+say RepeatChar.subparse(
+    'bbbabb', 
+    :rule('start'), 
+    :args(\('a'))
+);          # &lt;failed match&gt;
+
+say RepeatChar.subparse(
+    'bbbabb', 
+    :rule('start'), 
+    :args(\('a')), 
+    :pos(3)
+);          # ｢a｣
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/parse-structured-text/">解析结构化文本</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 21:46:27
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>[28/04/2015 12:32] Title1
+
+content line 1
+content line 2
+content line 3
+content line 4
+content line 5
+
+[28/04/2015 12:16] Title2
+
+content line 6
+content line 7
+
+[27/04/2015 17:30] ​Title3
+
+content line 8
+content line 9
+content line 10
+
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar StructedText {
+    token TOP { ^ &lt;entry&gt;+ $ }
+    token entry {
+        &lt;head&gt; \s*   # 每一项有一个标题
+        &lt;line&gt;+ \s*  # 每个标题下面有很多行
+    }
+    
+    token head     { '[' &lt;datetime&gt; ']' \s+ &lt;title&gt; }
+    token datetime {  &lt;filedate&gt; \s+  &lt;filetime&gt; }
+    token filedate { [\d+]+ % '/' }
+    token filetime { [\d+]+ % ':' }
+    token title    { \N+          }
+    token line  {
+        [
+		    &lt;!head&gt;       # 前面不是 head 标题
+            .             # 点号匹配换行符
+        ]+
+    }
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class StructedText::Actions {
+    method line    ($/) { $/.make: ~$/                            }
+    method filedate($/) { $/.make: ~$/.subst(rx/&lt;[:/]&gt;/, '-', :g) }
+    method head    ($/) { $/.make: ~$/.subst(rx/&lt;[:/]&gt;/, '-', :g) }
+    method entry   ($/) { make $&lt;head&gt;.ast =&gt; $&lt;line&gt;».made;      }
+    method TOP     ($/) { $/.make: $&lt;entry&gt;».ast;                 }    
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">my $actions = StructedText::Actions.new;
+my $parsed = StructedText.parsefile('sample.txt', :$actions).made;
+if $parsed {
+    for @$parsed -&gt; $e {
+        my $filename = ~$e.key.match(/'[' &lt;( &lt;-[\[\]]&gt;+ )&gt; ']'/)  ~ &quot;.txt&quot;;
+        my $fh = open $filename, :w; 
+        $fh.say: ~$e.key;
+        for $e.value -&gt; $v {
+            $fh.say: $v;
+        }
+        $fh.close;
+        say &quot;生成文件 $filename &quot;;       
+    }
+}
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/calc-lang/">计算器</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 21:27:02
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>x = 40 + 2;
+print x;
+
+y = x - (5/2);
+print y;
+
+z = 1 + y * x;
+print z;
+
+print 14 - 16/3 + x;
+</code></pre><p>目录结构如下:</p>
+<pre><code>.
+├── Lang
+│   ├── Actions.pm6
+│   └── Grammar.pm6
+├── data
+│   ├── calc.lang
+</code></pre><h3 id="grammar">Grammar</h3>
+<p><strong>Grammar.pm6</strong> 的内容如下:</p>
+<pre><code class="language-perl6" data-lang="perl6">unit grammar Lang::Grammar;
+
+rule TOP {
+    ^ &lt;statements&gt; $
+}
+
+rule statements {
+    &lt;statement&gt;+ %% ';'
+}
+
+rule statement {
+    | &lt;assignment&gt;
+    | &lt;printout&gt;
+}
+
+rule assignment {
+    &lt;identifier&gt; '=' &lt;expression&gt;
+}
+
+rule printout {
+    'print' &lt;expression&gt;
+}
+
+rule expression {
+    | &lt;term&gt;+ %% $&lt;op&gt;=(['+'|'-'])
+    | &lt;group&gt;
+}
+
+rule term {
+    &lt;factor&gt;+  %% $&lt;op&gt;=(['*'|'/'])
+}
+
+rule factor {
+    | &lt;identifier&gt;
+    | &lt;value&gt;
+    | &lt;group&gt;
+}
+
+rule group {
+    '(' &lt;expression&gt; ')'
+}
+
+token identifier {
+    (&lt;:alpha&gt;+)
+}
+
+token value {
+    (
+    | \d+['.' \d+]?
+    | '.' \d+
+    )
+}
+</code></pre><h3 id="action">Action</h3>
+<p><strong>Actions.pm6</strong> 的内容如下:</p>
+<pre><code class="language-perl6" data-lang="perl6">unit class Lang::Actions;
+
+has %.var;
+
+method assignment($/) {
+    %!var{$&lt;identifier&gt;} = $&lt;expression&gt;.ast;
+}
+
+method printout($/) {
+    say $&lt;expression&gt;.ast;
+}
+
+method expression($/) {
+    if $&lt;group&gt; {
+        $/.make: $&lt;group&gt;.ast
+    }
+    else {
+        my $result = $&lt;term&gt;[0].ast;
+
+        if $&lt;op&gt; {
+            my @ops = $&lt;op&gt;.map(~*);
+            my @vals = $&lt;term&gt;[1..*].map(*.ast);
+
+            for 0..@ops.elems - 1 -&gt; $c {
+                if @ops[$c] eq '+' {
+                    $result += @vals[$c];
+                }
+                else {
+                    $result -= @vals[$c];
+                }
+            }
+        }
+
+        $/.make: $result;
+    }
+}
+
+method term($/) {
+    my $result = $&lt;factor&gt;[0].ast;
+
+    if $&lt;op&gt; {
+        my @ops = $&lt;op&gt;.map(~*);
+        my @vals = $&lt;factor&gt;[1..*].map(*.ast);
+
+        for 0..@ops.elems - 1 -&gt; $c {
+            if @ops[$c] eq '*' {
+                $result *= @vals[$c];
+            }
+            else {
+                $result /= @vals[$c];
+            }
+        }
+    }
+
+    $/.make: $result;
+}
+
+method factor($/) {
+    if $&lt;identifier&gt; {
+        $/.make: %!var{~$&lt;identifier&gt;} // 0
+    }
+    elsif $&lt;value&gt; {
+        $/.make: $&lt;value&gt;.ast
+    }
+    elsif $&lt;group&gt; {
+        $/.make: $&lt;group&gt;.ast
+    }
+}
+
+method group($/) {
+    $/.make: $&lt;expression&gt;.ast
+}
+
+method identifier($/) {
+    $/.make: ~$0
+}
+
+method value($/) {
+    $/.make: +$0
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">use lib '.';
+use Lang::Grammar;
+use Lang::Actions;
+
+my $parsed = Lang::Grammar.parsefile(@*ARGS[0] // 'data/calc.lang', :actions(Lang::Actions.new()));
+say $parsed;
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/parse-json/">解析 JSON</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 21:19:56
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>{
+    &quot;country&quot;: &quot;Austria&quot;,
+    &quot;cities&quot;: [ &quot;Wien&quot;, &quot;Salzburg&quot;, &quot;Innsbruck&quot; ],
+    &quot;population&quot;: 8353243
+ }
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6"> grammar JSON::Tiny::Grammar {
+     rule TOP      { ^[ &lt;object&gt; | &lt;array&gt; ]$ }
+     rule object   { '{' ~ '}' &lt;pairlist&gt;     }
+     rule pairlist { &lt;pair&gt;* % [ \, ]         }
+     rule pair     { &lt;string&gt; ':' &lt;value&gt;     }
+     rule array    { '[' ~ ']' [ &lt;value&gt;* % [ \, ] ] }
+
+    proto token value { &lt;...&gt; };
+
+    token value:sym&lt;number&gt; {
+        '-'?
+        [ 0 | &lt;[1..9]&gt; &lt;[0..9]&gt;* ]
+        [ \. &lt;[0..9]&gt;+ ]?
+        [ &lt;[eE]&gt; [\+|\-]? &lt;[0..9]&gt;+ ]?
+    }
+
+    token value:sym&lt;true&gt;   { &lt;sym&gt;    };
+    token value:sym&lt;false&gt;  { &lt;sym&gt;    };
+    token value:sym&lt;null&gt;   { &lt;sym&gt;    };
+    token value:sym&lt;object&gt; { &lt;object&gt; };
+    token value:sym&lt;array&gt;  { &lt;array&gt;  };
+    token value:sym&lt;string&gt; { &lt;string&gt; }
+
+    token string {
+        \&quot; ~ \&quot; [ &lt;str&gt; | \\ &lt;str_escape&gt; ]*
+    }
+
+    token str {
+        [
+            &lt;!before \t&gt;
+            &lt;!before \n&gt;
+            &lt;!before \\&gt;
+            &lt;!before \&quot;&gt;
+            .
+        ]+
+        # &lt;-[&quot;\\\t\n]&gt;+
+    }
+
+    token str_escape {
+        &lt;[&quot;\\/bfnrt]&gt; | u &lt;xdigit&gt;**4
+    }
+ }
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6"> # test it:
+ my $tester = '{
+     &quot;country&quot;: &quot;Austria&quot;,
+     &quot;cities&quot;: [ &quot;Wien&quot;, &quot;Salzburg&quot;, &quot;Innsbruck&quot; ],
+     &quot;population&quot;: 8353243
+ }';
+
+ if JSON::Tiny::Grammar.parse($tester) {
+     say &quot;It's valid JSON&quot;;
+ } else {
+     # TODO: error reporting
+     say &quot;Not quite...&quot;;
+ }
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/parse-csv/">检测 CSV 是否有效</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 21:13:45
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>Year,Make,Model,Length
+1997,Ford,E350,2.34
+2000,Mercury,Cougar,2.38
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar CSV {
+    token TOP { [ &lt;line&gt; \n? ]+ }
+
+    token line {
+        ^^            # Beginning of a line
+        &lt;value&gt;* % \, # Any number of &lt;value&gt;s with commas in `between` them
+        $$            # End of a line
+    }
+
+    token value {
+        [
+        | &lt;-[&quot;,\n]&gt;     # Anything not a double quote, comma or newline
+        | &lt;quoted-text&gt; # Or some quoted text
+        ]*              # Any number of times
+    }
+    token quoted-text {
+        \&quot;
+        [
+        | &lt;-[&quot;\\]&gt; # Anything not a &quot; or \
+        | '\&quot;'     # Or \&quot;, an escaped quotation mark
+        ]*         # Any number of times
+        \&quot;
+    }
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">say &quot;Valid CSV file!&quot; if CSV.parse( q:to/EOCSV/ );
+    Year,Make,Model,Length
+    1997,Ford,E350,2.34
+    2000,Mercury,Cougar,2.38
+    EOCSV
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/card-game-with-action/">解析带 Action 的纸牌游戏</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 20:56:13
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>a♥ a♥ 7♦ 8♣ j♥
+a♥ 7♥ 7♦ 8♣ j♥; 10♥ j♥ q♥ k♥ a♦
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar CardGame {
+ 
+    rule TOP { ^ &lt;deal&gt; $ }
+ 
+    rule deal {
+       :my %*PLAYED = ();
+       &lt;hand&gt;+ % ';'
+    }
+ 
+    rule hand { [ &lt;card&gt; ]**5 }
+    token card {&lt;face&gt;&lt;suit&gt;}
+ 
+    proto token suit {*}
+    token suit:sym&lt;♥&gt;  {&lt;sym&gt;}
+    token suit:sym&lt;♦&gt;  {&lt;sym&gt;}
+    token suit:sym&lt;♣&gt;  {&lt;sym&gt;}
+    token suit:sym&lt;♠&gt;  {&lt;sym&gt;}
+ 
+    token face {:i &lt;[2..9]&gt; | 10 | j | q | k | a }
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class CardGame::Actions {
+    method card($/) {
+       my $card = $/.lc;
+       say &quot;Hey, there's an extra $card&quot;
+           if %*PLAYED{$card}++;
+   }
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">my $a = CardGame::Actions.new;
+say CardGame.parse(&quot;a♥ a♥ 7♦ 8♣ j♥&quot;, :actions($a));
+# &quot;Hey there's an extra a♥&quot;
+say CardGame.parse(&quot;a♥ 7♥ 7♦ 8♣ j♥; 10♥ j♥ q♥ k♥ a♦&quot;,
+                   :actions($a));
+# &quot;Hey there's an extra j♥&quot;
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/card-game/">解析纸牌游戏</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 20:53:19
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>2♥ 5♥ 7♦ 8♣ 9♠
+2♥ a♥ 7♦ 8♣ j♥
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar CardGame {
+ 
+    rule TOP { ^ &lt;deal&gt; $ }
+ 
+    rule deal {
+        &lt;hand&gt;+ % ';'
+    }
+ 
+    rule hand { [ &lt;card&gt; ]**5 }
+    token card {&lt;face&gt;&lt;suit&gt;}
+ 
+    proto token suit {*}
+    token suit:sym&lt;♥&gt;  {&lt;sym&gt;}
+    token suit:sym&lt;♦&gt;  {&lt;sym&gt;}
+    token suit:sym&lt;♣&gt;  {&lt;sym&gt;}
+    token suit:sym&lt;♠&gt;  {&lt;sym&gt;}
+ 
+    token face {:i &lt;[2..9]&gt; | 10 | j | q | k | a }
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">say CardGame.parse(&quot;2♥ 5♥ 7♦ 8♣ 9♠&quot;);
+say CardGame.parse(&quot;2♥ a♥ 7♦ 8♣ j♥&quot;);
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/alaways-succeed-assertion/">Alaways Succeed Assertion</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 20:40:19
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>255 435 777
+123 456 789
+098 764 125
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar Digifier {
+    rule TOP {
+        [ &lt;.succ&gt; &lt;digit&gt;+ ]+
+    }
+    token succ   { &lt;?&gt; }
+    token digit { &lt;[0..9]&gt; }
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class Devanagari {
+    has @!numbers;
+    method digit ($/) { @!numbers.tail ~= &lt;零 一 二 三 四 五 六 七 八 九&gt;[$/] }
+    method succ  ($)  { @!numbers.push: ''     }
+    method TOP   ($/) { make @!numbers[^(*-1)] }
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">say Digifier.parse('255 435 777', actions =&gt; Devanagari.new).made;
+# OUTPUT: 二五五 四三五 七七七
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/parse-university/">解析校名</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 20:31:38
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样本">数据样本</h3>
+<pre><code>[Wang, Zhiguo; Zhao, Zhiguo] Hangzhou Normal Univ, Ctr Cognit &amp; Brain Disorders, Hangzhou, Zhejiang, Peoples R China; [Wang, Zhiguo; Theeuwes, Jan] Vrije Univ Amsterdam, Dept Cognit Psychol, Amsterdam, Netherlands
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar University {
+    token TOP             { ^ &lt;university&gt; $             }
+    token university      { [ &lt;bracket&gt; &lt;info&gt; ]+ % '; ' }
+    token bracket         { '[' &lt;studentname&gt;  '] '      }
+    token studentname     { &lt;stdname=.info&gt;+ % '; '      }
+    token info            { &lt;field&gt;+ % ', '              }
+    token field           { &lt;-[,\]\[;\n]&gt;+               }
+}
+
+grammar MyUniversity  is University {
+    token university      { &lt;info&gt;+ % '; ' }
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class MyUniversityAction {
+    ...
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">my $parsed = University::Grammar.parse($string);
+
+for @($parsed&lt;university&gt;&lt;info&gt;) -&gt; $u {
+    say $u&lt;field&gt;[0];
+}
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/key-value-pairs/">解析键值对儿</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 20:17:10
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>version=6.d
+backend=MoarVM
+disto=Rakudo Star
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar KeyValuePairs {
+    token TOP {
+        [&lt;pair&gt; \v+]*
+    }
+
+    token pair {
+        &lt;key=.identifier&gt; '=' &lt;value=.identifier&gt;
+    }
+
+    token identifier {
+        \w+
+    }
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class KeyValuePairsActions {
+    method pair      ($/) {
+        $/.make: $&lt;key&gt;.made =&gt; $&lt;value&gt;.made
+    }
+    method identifier($/) {
+        # subroutine `make` is the same as calling .make on $/
+        make ~$/
+    }
+
+    method TOP ($match) {
+        # can use any variable name for parameter, not just $/
+        $match.make: $match&lt;pair&gt;».made
+    }
+}
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/math-expression/">解析数学表达式</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 20:01:16
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>3 + 4 - 5
+3 * 4 * 5
+4 + 5 * (1 + 3)
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar MathExpression {
+    token TOP    { &lt;sum&gt;              } 
+    rule sum     { &lt;product&gt;+ % '+'   } 
+    rule product { &lt;term&gt;+    % '*'   } 
+    rule term    { &lt;number&gt; | &lt;group&gt; } 
+    rule group   { '(' &lt;sum&gt; ')'      } 
+    token number { \d+                }
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class MathEvalAction {
+    method TOP($/) {
+        make $&lt;sum&gt;.made;
+    }
+    method sum($/) {
+        make [+] $&lt;product&gt;».made;
+    }
+    method product($/) {
+        make [*] $&lt;term&gt;».made;
+    }
+    method term($/) {
+        make $/.values[0].made;
+    }
+    method group($/) {
+        make $&lt;sum&gt;.made;
+    }
+    method number($/) {
+        make $/.Int;
+    }
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">my $match = MathExpression.parse(
+    '4 + 5 * (1 + 3)',
+    actions =&gt; MathEvalAction.new,
+);
+
+say $match.made; # Output: 24
+say $match.raku;
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/parse-variable-name/">解析变量名</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 19:41:58
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>@array
+%hash
+$sum
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar VariableNames {
+
+    token variable {
+        &lt;sigil&gt; &lt;name&gt;
+    }
+	
+    token sigil {
+        '$' | '@' | '&amp;' | '%' | '::'
+    }
+	
+	# [ ... ] are non-capturing groups
+	token name {
+        &lt;identifier&gt; 
+        [ '::' &lt;identifier&gt; ] * 
+    }
+	# 标识符以字母开头
+    token identifier {
+        &lt;alpha&gt; \w+
+    }
+}
+</code></pre><h4 id="匹配">匹配</h4>
+<pre><code class="language-perl6" data-lang="perl6">my $match = VariableNames.parse(&quot;@array&quot;,:rule('variable'));
+say $match;
+</code></pre><h3 id="继承">继承</h3>
+<pre><code class="language-perl6" data-lang="perl6"># we inherit from the original grammar...
+grammar VARIABLENAMES is VariableNames {
+    
+    # ... and override that parsing rule that we want to change
+    token identifier {
+        # char classes are &lt;[ ... ]&gt; in Perl 6
+        &lt;[A..Z]&gt; &lt;[A..Z0..9_]&gt;* 
+    }
+}
+</code></pre><h4 id="匹配-1">匹配</h4>
+<pre><code class="language-perl6" data-lang="perl6">my $test = VARIABLENAMES.parse(&quot;%A_HASH_TABLE&quot;,:rule('variable'));
+say $test;
+</code></pre><h3 id="继承-1">继承</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar LackMoney is VariableNames {
+    token sigil {
+        '¢' | '@' | '&amp;' | '%' | '::'
+    }
+}
+</code></pre><h4 id="匹配-2">匹配</h4>
+<pre><code class="language-perl6" data-lang="perl6"># 继承以后, 带¢的变量能够解析, 带$的变量解析不了了
+my $money = LackMoney.parse('$i_m_not_dollor',:rule('variable'));
+say so $money; # false
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/pair-bracket/">解析括号对儿之间的数据</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 19:04:51
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样本">数据样本</h3>
+<pre><code>[Lue, Fan]
+[Lou, Man-Li]
+[Tian, Mijie; Zhou, Lin; Zou, Xiao; Zheng, Qiaoji; Luo, Lingling; Jiang, Na; Lin, Dunmin]
+
+</code></pre><h3 id="grrammar">Grrammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar PairBracket {
+    token TOP {
+        ^ &lt;line&gt;+ $
+    }
+
+    token line {
+        \[
+        &lt;student&gt;+ % &lt;semicolon&gt;
+        \]
+        \n                   # 换行 \n 是最容易被忽略的地方
+    }
+
+    token student {
+       &lt;myname&gt;+ % &lt;comma&gt;   # 分隔符也可以是一个 subrule
+    }
+
+    token myname {
+        &lt;[A..Za..z-]&gt;+       # 字符类的写法 &lt;[...]&gt;
+    }
+
+    token comma {
+        ',' \s+              # 逗号
+    }
+
+    token semicolon {
+        ';' \s+
+    }
+
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class PairBracketAction {
+    ...
+}
+</code></pre><h3 id="提取数据">提取数据</h3>
+<pre><code class="language-perl6" data-lang="perl6">my $parse = Lines.parsefile('test.txt');
+say $parse&lt;line&gt;;
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/ini-parser/">解析 INI 文件</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 18:42:52
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="ini-数据">INI 数据</h3>
+<pre><code>access=user
+;; more details of user below
+[person]
+name=john doe
+address=555 Canndy Lane
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar IniFile {
+    token key     { \w+ }
+    token value   { &lt;!before \s&gt; &lt;-[\n;]&gt;+ &lt;!after \s&gt; }
+    token pair    { &lt;key&gt; \h* '=' \h* &lt;value&gt; \n+      }
+    token header  { '[' &lt;-[ \[ \] \n ]&gt;+ ']' \n+       }
+    token comment { ';' \N*\n+                         }
+    token block   { [&lt;pair&gt; | &lt;comment&gt;]*              }
+    token section { &lt;header&gt; &lt;block&gt;                   }
+    token TOP     { &lt;block&gt; &lt;section&gt;*                 }
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class IniFile::Action  {
+    method key($/)     { make $/.Str }
+    method value($/)   { make $/.Str }
+    method headse($/)  { make $/.Str }
+    method pair($/)    { make $&lt;key&gt;.made =&gt; $&lt;value&gt;.made }
+    method block($/)   { make $&lt;pair&gt;.map({ .made }).hash  }
+    method section($/) { make $&lt;header&gt;.made =&gt; $&lt;block&gt;.made }
+    method TOP($/) {
+        make {
+            _ =&gt; $&lt;block&gt;.made,
+            $&lt;section&gt;.map: { .made },
+        }
+    }
+}
+</code></pre><h3 id="提取信息">提取信息</h3>
+<pre><code class="language-perl6" data-lang="perl6">sub parse-ini(Str $input) {
+    my $m = IniFile.parse( $input, :actions(IniFile::Action) );
+    unless $m {
+        die &quot;the input is not a valid INI file&quot;;
+    }
+    return $m.made;
+}
+
+sub MAIN() {
+    say parse-ini($example);
+}
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/station/">解析天气预报数据</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 18:25:43
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="天气观测数据">天气观测数据</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Name= Jan Mayen 
+Country= NORWAY 
+Lat=   70.9 
+Long=    8.7 
+Height= 10 
+Start year= 1921 
+End year= 2009 
+Obs: 
+1921 -4.4 -7.1 -6.8 -4.3 -0.8  2.2  4.7  5.8  2.7 -2.0 -2.1 -4.0  
+1922 -0.9 -1.7 -6.2 -3.7 -1.6  2.9  4.8  6.3  2.7 -0.2 -3.8 -2.6  
+2008 -2.8 -2.7 -4.6 -1.8  1.1  3.3  6.1  6.9  5.8  1.2 -3.5 -0.8  
+2009 -2.3 -5.3 -3.2 -1.6  2.0  2.9  6.7  7.2  3.8  0.6 -0.3 -1.3 
+</code></pre></div><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar StationDataParser { 
+    token TOP          { ^ &lt;keyval&gt;+ &lt;observations&gt; $             } 
+    token keyval       { $&lt;key&gt;=[&lt;-[=]&gt;+] '=' \h* $&lt;val&gt;=[\N+] \n } 
+    token observations { 'Obs:' \h* \n &lt;observation&gt;+             } 
+    token observation  { $&lt;year&gt;=[\d+] \h* &lt;temp&gt;+ %% [\h*] \n    } 
+    token temp         { '-'? \d+ \. \d+                          } 
+}
+</code></pre><h3 id="stationdata-对象">StationData 对象</h3>
+<pre><code class="language-perl6" data-lang="perl6">class StationData { 
+    has $.name; 
+    has $.country; 
+    has @.data; 
+     
+    submethod BUILD(:%info (:Name($!name), :Country($!country), *%), :@!data) { 
+    } 
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class StationDataActions { 
+    method TOP($/) { 
+        make StationData.new( 
+            info =&gt; $&lt;keyval&gt;.map(*.ast).hash, 
+            data =&gt; $&lt;observations&gt;.ast 
+        ); 
+    } 
+	
+    method keyval($/) { 
+        make ~$&lt;key&gt; =&gt; ~$&lt;val&gt;; 
+    } 
+    method observations($/) { 
+        make $&lt;observation&gt;.map(*.ast).grep(*.value.none &lt;= -99); 
+    } 
+    method observation($/) { 
+        make +$&lt;year&gt; =&gt; $&lt;temp&gt;.map(*.Num); 
+    } 
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">say StationDataParser.parse( q:to/EOCSV/, :actions(StationDataActions) ).ast
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/hello-world/">Hello Hugo</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 00:00:00
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="通过例子学习-grammar">通过例子学习 Grammar</h3>
+<p>这是一系列例子, 对于 Raku 中难于学习的知识, 建立单独的 blog 来学习, 包括: Grammar、异步和并发、正则表达式、Unicode 、特殊符号、Single-Argument 等等。</p>
+<p>通过例子学习 Raku Grammar。由于 Grammar 比较难写, 更难于调试, 于是就有了这样一个专用的博客来记录学习 Grammar。通过生动活泼的例子来学会 Grammar, 处理文本, 天下无敌手。</p>
+<p>燃浪, 燃浪。</p>
+<h3 id="叠浪">叠浪</h3>
+<p>层峦叠浪, 层峦叠浪, 层峦叠浪。</p>
+<h3 id="浪里乱摆">浪里乱摆</h3>
+<p>浪里乱摆, 浪里乱摆, 浪里乱摆。</p>
+
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/trips/">解析行程数据</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 00:00:00
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="行程数据">行程数据</h3>
+<pre><code>Russia
+    Vladivostok : 43.131621,131.923828 : 4
+    Ulan Ude : 51.841624,107.608101 : 2
+    Saint Petersburg : 59.939977,30.315785 : 10
+Norway
+    Oslo : 59.914289,10.738739 : 2
+    Bergen : 60.388533,5.331856 : 4
+Ukraine
+    Kiev : 50.456001,30.50384 : 3
+Switzerland
+    Wengen : 46.608265,7.922065 : 3
+    Bern : 46.949076,7.448151 : 1
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar SalesExport {
+    token TOP { ^ &lt;country&gt;+ $ }
+    token country {
+        &lt;name&gt; \n
+        &lt;destination&gt;+
+    }
+    token destination {
+        \s+ &lt;name&gt; \s+ ':' \s+
+        &lt;lat=.num&gt; ',' &lt;long=.num&gt; \s+ ':' \s+
+        &lt;sales=.integer&gt; \n
+    }
+    token name    { \w+ [ \s \w+ ]*   }
+    token num     { '-'? \d+ [\.\d+]? }
+    token integer { '-'? \d+          }
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class SalesExport::Action  {
+	method destination($/) { make ~$&lt;dname&gt; =&gt; [$&lt;sales&gt;.map(*.Num+10),$&lt;lat&gt;.map(*.Num+90) ] }
+    method country($/)     { make ~$&lt;cname&gt; =&gt; $&lt;destination&gt;&gt;&gt;.made            }
+    method TOP($/)         { make $&lt;country&gt;&gt;&gt;.made                             }
+}
+</code></pre><h3 id="提取信息">提取信息</h3>
+<pre><code class="language-perl6" data-lang="perl6">my $actions = SalesExport::Grammar::Actions.new;
+my $grammar_action = SalesExport::Grammar.parse($string, :actions($actions)).made;
+#say $grammar_action.Str;
+# 获取所有国家的名字
+for @$grammar_action -&gt; $p {
+    say &quot;$p.key()&quot;;
+}
+say '-' x 45;
+# 获取所有目的地
+for @$grammar_action -&gt; $p {
+    for $p.value() -&gt; $d {
+	    for @$d -&gt; $n {
+		    say $n.key();
+		}
+	}
+}
+say '-' x 45;
+# 获取出售的票数
+for @$grammar_action -&gt; $p {
+    print &quot;$p.key()\t&quot;;
+    for $p.value() -&gt; $d {
+	    my $count;
+	    for @$d -&gt; $n {
+		    $count += $n.value()[0];
+		}
+	say $count;
+	}
+}
+
+say '-' x 45;
+# 获取经度 lat
+for @$grammar_action -&gt; $p {
+    for $p.value() -&gt; $d {
+	    for @$d -&gt; $n {
+		    say $n.value()[1];
+		}
+	}
+}
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+    
+  </div>
+</div>
+
+  </div>
+
+      </div>
+
+      
+        
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="copyright">
+      <span>共 21 篇文章</span><span> 4092 字</span>
+    </div>
+    
+      <div class="copyright">
+        <span>© 2020 Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a> Theme by <a href="https://twitter.com/panr" target="_blank" rel="noopener">Panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lmm214/immmmm@gh-pages/main.js"></script>
+
+<script type="text/javascript" src='https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js'></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lmm214/immmmm@gh-pages/lately.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lmm214/immmmm@gh-pages/waterfall.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lmm214/immmmm@gh-pages/slimbox2.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lmm214/immmmm@gh-pages/al.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/instant.page@3.0.0/instantpage.min.js" type="module"></script>
+
+      
+    </div>
+  </body>
+</html>

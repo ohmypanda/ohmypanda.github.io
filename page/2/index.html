@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+	<meta name="generator" content="Hugo 0.63.2" />
+    
+      <title>焉知非鱼</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<meta name="referrer" content="never" />
+<link rel="canonical" href="https://ohmypanda.github.io/" />
+<link rel="stylesheet" href="https://ohmypanda.github.io/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:500&display=swap" media="print" onload="this.media='all'">
+<link rel="shortcut icon" href="https://ohmypanda.github.io/favicon.ico">
+
+<meta property="og:title" content="首页" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ohmypanda.github.io/" />
+<meta property="og:updated_time" content="2020-05-11T00:00:00+00:00" />
+
+
+<link rel="alternate" type="application/rss+xml" href="/atom.xml" title="焉知非鱼" />
+<link rel="alternate" type="application/json" href="/index.json" title="焉知非鱼" />
+
+    
+  <link rel="prefetch" href="/">
+  
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://ohmypanda.github.io" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__text">焉知非鱼</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu hidden">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/archives/">归档</a></li>
+        
+      
+        
+          <li><a href="/about/">关于</a></li>
+        
+      
+        
+          <li><a href="/tags/">标签</a></li>
+        
+      
+    
+
+                <li><a href="/search/"><svg t="1556783211810" class="search-box-icon" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2078" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"></style></defs><path d="M981.39652054 920.86314525L704.56522859 644.0318533a366.65501012 366.65501012 0 1 0-61.73503038 65.64040943L917.55859375 984.40065827z m-856.17925347-493.12920861a284.19142939 284.19142939 0 1 1 283.89101562 284.19142939A284.49184317 284.49184317 0 0 1 125.06706019 427.73393664z" fill="" p-id="2079" data-spm-anchor-id="a313x.7781069.0.i2"></path></svg></a></li>
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/archives/">归档</a></li>
+      
+    
+      
+        <li><a href="/about/">关于</a></li>
+      
+    
+      
+        <li><a href="/tags/">标签</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  
+  
+    
+  
+  
+
+  <div class="posts">
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/trips/">解析行程数据</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 00:00:00
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="行程数据">行程数据</h3>
+<pre><code>Russia
+    Vladivostok : 43.131621,131.923828 : 4
+    Ulan Ude : 51.841624,107.608101 : 2
+    Saint Petersburg : 59.939977,30.315785 : 10
+Norway
+    Oslo : 59.914289,10.738739 : 2
+    Bergen : 60.388533,5.331856 : 4
+Ukraine
+    Kiev : 50.456001,30.50384 : 3
+Switzerland
+    Wengen : 46.608265,7.922065 : 3
+    Bern : 46.949076,7.448151 : 1
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar SalesExport {
+    token TOP { ^ &lt;country&gt;+ $ }
+    token country {
+        &lt;name&gt; \n
+        &lt;destination&gt;+
+    }
+    token destination {
+        \s+ &lt;name&gt; \s+ ':' \s+
+        &lt;lat=.num&gt; ',' &lt;long=.num&gt; \s+ ':' \s+
+        &lt;sales=.integer&gt; \n
+    }
+    token name    { \w+ [ \s \w+ ]*   }
+    token num     { '-'? \d+ [\.\d+]? }
+    token integer { '-'? \d+          }
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class SalesExport::Action  {
+	method destination($/) { make ~$&lt;dname&gt; =&gt; [$&lt;sales&gt;.map(*.Num+10),$&lt;lat&gt;.map(*.Num+90) ] }
+    method country($/)     { make ~$&lt;cname&gt; =&gt; $&lt;destination&gt;&gt;&gt;.made            }
+    method TOP($/)         { make $&lt;country&gt;&gt;&gt;.made                             }
+}
+</code></pre><h3 id="提取信息">提取信息</h3>
+<pre><code class="language-perl6" data-lang="perl6">my $actions = SalesExport::Grammar::Actions.new;
+my $grammar_action = SalesExport::Grammar.parse($string, :actions($actions)).made;
+#say $grammar_action.Str;
+# 获取所有国家的名字
+for @$grammar_action -&gt; $p {
+    say &quot;$p.key()&quot;;
+}
+say '-' x 45;
+# 获取所有目的地
+for @$grammar_action -&gt; $p {
+    for $p.value() -&gt; $d {
+	    for @$d -&gt; $n {
+		    say $n.key();
+		}
+	}
+}
+say '-' x 45;
+# 获取出售的票数
+for @$grammar_action -&gt; $p {
+    print &quot;$p.key()\t&quot;;
+    for $p.value() -&gt; $d {
+	    my $count;
+	    for @$d -&gt; $n {
+		    $count += $n.value()[0];
+		}
+	say $count;
+	}
+}
+
+say '-' x 45;
+# 获取经度 lat
+for @$grammar_action -&gt; $p {
+    for $p.value() -&gt; $d {
+	    for @$d -&gt; $n {
+		    say $n.value()[1];
+		}
+	}
+}
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list /">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/search/">Search Results</a></h1>
+      <div class="post-meta">
+        
+
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list /">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/bb/">一句话</a></h1>
+      <div class="post-meta">
+        
+
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        
+        
+      
+      </div>
+    
+    </div>
+    
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+      <span class="button previous">
+        <a href="/">
+          <span class="button__icon">←</span>
+          <span class="button__text">上 一 页</span>
+        </a>
+      </span>
+    
+    
+  </div>
+</div>
+
+  </div>
+
+      </div>
+
+      
+        
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="copyright">
+      <span>共 21 篇文章</span><span> 4092 字</span>
+    </div>
+    
+      <div class="copyright">
+        <span>© 2020 Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a> Theme by <a href="https://twitter.com/panr" target="_blank" rel="noopener">Panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lmm214/immmmm@gh-pages/main.js"></script>
+
+<script type="text/javascript" src='https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js'></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lmm214/immmmm@gh-pages/lately.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lmm214/immmmm@gh-pages/waterfall.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lmm214/immmmm@gh-pages/slimbox2.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/lmm214/immmmm@gh-pages/al.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/instant.page@3.0.0/instantpage.min.js" type="module"></script>
+
+      
+    </div>
+  </body>
+</html>
