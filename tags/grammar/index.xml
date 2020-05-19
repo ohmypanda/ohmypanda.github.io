@@ -6,10 +6,19 @@
     <description>Recent content in Grammar on 焉知非鱼</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 06 May 2020 14:14:08 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2020 23:41:33 +0800</lastBuildDate>
     
 	<atom:link href="https://ohmypanda.github.io/tags/grammar/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>提取 ipconfig 命令的部分输出</title>
+      <link>https://ohmypanda.github.io/extract-ipconfig/</link>
+      <pubDate>Tue, 19 May 2020 23:41:33 +0800</pubDate>
+      
+      <guid>https://ohmypanda.github.io/extract-ipconfig/</guid>
+      <description>数据样例 下面这段文本是 IPCONFIG /ALL 命令的输出结果: Windows IP 配置 主机名 . . . . . . . . . . . . . : Win10-2020QJFDK 主 DNS 后缀 . . . . . . . . . . . : 节点类型 . . . . . . . . . . . . : 混合 IP 路由已启用 . . . . . . . . . . : 否 WINS 代理已启用 . . . . . . . . . : 否 以太网适配器 本地连接* 9: 媒体状态 . . . . . . . . . . . . : 媒体已断开连接 连接特定的 DNS 后缀 . . . . . . . : 描述. . . . . . . . . . . . . . . : Sangfor SSL VPN CS Support System VNIC 物理地址. . . . . . . . . . . . . : 00-FF-05-0D-13-A2 DHCP 已启用 . . . . . . . . . . . : 否 自动配置已启用. . . . . . . . . . : 是 无线局域网适配器 WLAN: 媒体状态 . . . . . . . . . . . . : 媒体已断开连接 连接特定的 DNS 后缀 . . . . . . . : 描述. . . . . . . . . . . . . . . : Realtek RTL8192EU Wireless LAN 802.11n USB 2.0 Network Adapter 物理地址. . . . . . . . . . . . . : 30-B4-9E-40-FF-0C DHCP 已启用 . . . . . . . . . . . : 是 自动配置已启用. . . . . . . . . . : 是 无线局域网适配器 本地连接* 10: 媒体状态 . . . . . . . . . . . . : 媒体已断开连接 连接特定的 DNS 后缀 . . . . . . . : 描述. . . . . . . . . . . . . . . : Microsoft Wi-Fi Direct Virtual Adapter 物理地址. . . . . . . . . . . . . : 32-B4-9E-40-FF-0C DHCP 已启用 . . . . . . . . . . . : 是 自动配置已启用. . . . . . . . . . : 是 以太网适配器 以太网: 连接特定的 DNS 后缀 . . . . . . . : 描述. . . . . . . . . . . . . . . : Realtek PCIe GBE Family Controller 物理地址. . . . . . . . . . . . . : 54-E1-AD-48-66-22 DHCP 已启用 . . . . . . . . . . . : 否 自动配置已启用. . . . . . . . . . : 是 本地链接 IPv6 地址. . . . . . . . : fe80::4195:49da:a7ec:9e68%6(首选) IPv4 地址 . . . . . . . . . . . . : 192.168.0.68(首选) 子网掩码 . . . . . . . . . . . . : 255.255.255.0 默认网关. . . . . . . . . . . . . : 192.168.0.1 DHCPv6 IAID . . . . . . . . . . . : 324329901 DHCPv6 客户端 DUID . . . . . . . : 00-01-00-01-26-4E-B2-11-54-E1-AD-48-66-22 DNS 服务器 . . . . . . . . . . . : 61.128.128.68 TCPIP 上的 NetBIOS . . . . . . . : 已启用 分别提取含有&amp;quot;适配器&amp;quot;文字下面的「描述」、「物理地址」、「IP地址」、「子网掩码」、「默认网关」、「DNS 服务器」等信息。某些适配器下面可能实际没有「IP地址」、「子网掩码」、「默认网关」、「DNS 服务器」等，有就提取，没有就略过。 Grammar unit grammar IPConfig::Grammar; token TOP { &amp;lt;section&amp;gt;+ %% \n* } token section { &amp;lt;header&amp;gt; \n &amp;lt;config&amp;gt;+ } token header { ^^ \N+ \n } token config { ^^ \s+ \N+ $$ \n* } Action unit class IPConfig::Action; method TOP($/) { make $/&amp;lt;section&amp;gt;».made; } method section($/) { my $configs = $/&amp;lt;config&amp;gt;».made; if $configs.elems &amp;gt; 0 { make ~$/&amp;lt;header&amp;gt; ~ $configs.join(&#39;&#39;); } else { make Empty; } } method header($/) { make ~$/; } method config($/ is copy) { my $text = ~$/; if $text.contains(/&#39;描述&#39; | &#39;物理地址&#39; | IPv[4|6] &#39; &#39; 地址 | &#39;子网掩码&#39; | DNS &#39; &#39; 服务器/) { $/.make(~$/); } else { make Empty; } } 提取脚本 use lib &#39;.&#39;; use IPConfig::Grammar; use IPConfig::Action; my $ipconfig = IPConfig::Grammar.parsefile( &amp;quot;data/ifconfig.txt&amp;quot;, :actions(IPConfig::Action) ).made; .Str.say for @$ipconfig; 输出 以太网适配器 本地连接* 9: 描述. . . . . . . . . . . . . . . : Sangfor SSL VPN CS Support System VNIC 物理地址. . . . . . . . . . . . . : 00-FF-05-0D-13-A2 无线局域网适配器 WLAN: 描述. . . . . . . . . . . . . . . : Realtek RTL8192EU Wireless LAN 802.11n USB 2.0 Network Adapter 物理地址. . . . . . . . . . . . . : 30-B4-9E-40-FF-0C 无线局域网适配器 本地连接* 10: 描述. . . . . . . . . . . . . . . : Microsoft Wi-Fi Direct Virtual Adapter 物理地址. . . . . . . . . . . . . : 32-B4-9E-40-FF-0C 以太网适配器 以太网: 描述. . . . . . . . . . . . . . . : Realtek PCIe GBE Family Controller 物理地址. . . . . . . . . . . . . : 54-E1-AD-48-66-22 本地链接 IPv6 地址. . . . . . . . : fe80::4195:49da:a7ec:9e68%6(首选) IPv4 地址 . . . . . . . . . . . . : 192.168.0.68(首选) 子网掩码 . . . . . . . . . . . . : 255.255.255.0 默认网关. . . . . . . . . . . . . : 192.168.0.1 DNS 服务器 . . . . . . . . . . . : 61.128.128.68</description>
+    </item>
     
     <item>
       <title>使用 %% 提取文本块儿</title>
@@ -45,15 +54,6 @@
       
       <guid>https://ohmypanda.github.io/subparse/</guid>
       <description>子解析 游标不一定要到达字符串的末尾才算成功。也就是说，它不一定要匹配整个字符串。 subparse 总是返回一个 Match 对象 method subparse( $target, :$rule = &#39;TOP&#39;, Capture() :$args = \(), Mu :$actions = Mu, *%opt ) Grammar grammar RepeatChar { token start($character) { $character+ } } 解析 say RepeatChar.subparse( &#39;bbbabb&#39;, :rule(&#39;start&#39;), :args(\(&#39;b&#39;)) ); # ｢bbb｣ say RepeatChar.parse( &#39;bbbabb&#39;, :rule(&#39;start&#39;), :args(\(&#39;b&#39;)) ); # Nil say RepeatChar.subparse( &#39;bbbabb&#39;, :rule(&#39;start&#39;), :args(\(&#39;a&#39;)) ); # &amp;lt;failed match&amp;gt; say RepeatChar.subparse( &#39;bbbabb&#39;, :rule(&#39;start&#39;), :args(\(&#39;a&#39;)), :pos(3) ); # ｢a｣</description>
-    </item>
-    
-    <item>
-      <title>解析结构化文本</title>
-      <link>https://ohmypanda.github.io/parse-structured-text/</link>
-      <pubDate>Tue, 05 May 2020 21:46:27 +0800</pubDate>
-      
-      <guid>https://ohmypanda.github.io/parse-structured-text/</guid>
-      <description>数据样例 [28/04/2015 12:32] Title1 content line 1 content line 2 content line 3 content line 4 content line 5 [28/04/2015 12:16] Title2 content line 6 content line 7 [27/04/2015 17:30] ​Title3 content line 8 content line 9 content line 10 Grammar grammar StructedText { token TOP { ^ &amp;lt;entry&amp;gt;+ $ } token entry { &amp;lt;head&amp;gt; \s* # 每一项有一个标题 &amp;lt;line&amp;gt;+ \s* # 每个标题下面有很多行 } token head { &#39;[&#39; &amp;lt;datetime&amp;gt; &#39;]&#39; \s+ &amp;lt;title&amp;gt; } token datetime { &amp;lt;filedate&amp;gt; \s+ &amp;lt;filetime&amp;gt; } token filedate { [\d+]+ % &#39;/&#39; } token filetime { [\d+]+ % &#39;:&#39; } token title { \N+ } token line { [ &amp;lt;!head&amp;gt; # 前面不是 head 标题 . # 点号匹配换行符 ]+ } } Action class StructedText::Actions { method line ($/) { $/.make: ~$/ } method filedate($/) { $/.make: ~$/.subst(rx/&amp;lt;[:/]&amp;gt;/, &#39;-&#39;, :g) } method head ($/) { $/.make: ~$/.subst(rx/&amp;lt;[:/]&amp;gt;/, &#39;-&#39;, :g) } method entry ($/) { make $&amp;lt;head&amp;gt;.ast =&amp;gt; $&amp;lt;line&amp;gt;».made; } method TOP ($/) { $/.make: $&amp;lt;entry&amp;gt;».ast; } } 解析 my $actions = StructedText::Actions.new; my $parsed = StructedText.parsefile(&#39;sample.txt&#39;, :$actions).made; if $parsed { for @$parsed -&amp;gt; $e { my $filename = ~$e.key.match(/&#39;[&#39; &amp;lt;( &amp;lt;-[\[\]]&amp;gt;+ )&amp;gt; &#39;]&#39;/) ~ &amp;quot;.txt&amp;quot;; my $fh = open $filename, :w; $fh.say: ~$e.key; for $e.value -&amp;gt; $v { $fh.say: $v; } $fh.close; say &amp;quot;生成文件 $filename &amp;quot;; } }</description>
     </item>
     
   </channel>

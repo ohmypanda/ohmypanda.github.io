@@ -7,12 +7,173 @@
             <link href="https://ohmypanda.github.io/atom.xml" rel="self" type="application/rss+xml" title="atom" />
             <link href="https://ohmypanda.github.io/" rel="alternate" type="text/html" title="HTML" />
             <link href="https://ohmypanda.github.io/index.json" rel="alternate" type="application/json" title="JSON" />
-    <updated>2020-05-14T18:41:00+08:00</updated>
+    <updated>2020-05-19T23:51:28+08:00</updated>
     
     
     
     
         <id>https://ohmypanda.github.io/atom.xml</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[提取 ipconfig 命令的部分输出]]></title>
+            <link href="https://ohmypanda.github.io/extract-ipconfig/" rel="alternate" type="text/html" />
+            
+                <link href="https://ohmypanda.github.io/extract-sections-with-double-percent/" rel="related" type="text/html" title="使用 %% 提取文本块儿" />
+                <link href="https://ohmypanda.github.io/extract-sections-again/" rel="related" type="text/html" title="再用 %% 提取文本块儿" />
+                <link href="https://ohmypanda.github.io/extract-sections/" rel="related" type="text/html" title="提取文本块儿" />
+                <link href="https://ohmypanda.github.io/subparse/" rel="related" type="text/html" title="子解析" />
+                <link href="https://ohmypanda.github.io/parse-structured-text/" rel="related" type="text/html" title="解析结构化文本" />
+            
+                <id>https://ohmypanda.github.io/extract-ipconfig/</id>
+            
+            
+            <published>2020-05-19T23:41:33+08:00</published>
+            <updated>2020-05-19T23:41:33+08:00</updated>
+            
+            
+            <content type="html"><![CDATA[<h3 id="数据样例">数据样例</h3>
+<p>下面这段文本是 <code>IPCONFIG /ALL</code> 命令的输出结果:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Windows IP 配置
+
+   主机名  . . . . . . . . . . . . . : Win10-2020QJFDK
+   主 DNS 后缀 . . . . . . . . . . . : 
+   节点类型  . . . . . . . . . . . . : 混合
+   IP 路由已启用 . . . . . . . . . . : 否
+   WINS 代理已启用 . . . . . . . . . : 否
+
+以太网适配器 本地连接* 9:
+
+   媒体状态  . . . . . . . . . . . . : 媒体已断开连接
+   连接特定的 DNS 后缀 . . . . . . . : 
+   描述. . . . . . . . . . . . . . . : Sangfor SSL VPN CS Support System VNIC
+   物理地址. . . . . . . . . . . . . : 00-FF-05-0D-13-A2
+   DHCP 已启用 . . . . . . . . . . . : 否
+   自动配置已启用. . . . . . . . . . : 是
+
+无线局域网适配器 WLAN:
+
+   媒体状态  . . . . . . . . . . . . : 媒体已断开连接
+   连接特定的 DNS 后缀 . . . . . . . : 
+   描述. . . . . . . . . . . . . . . : Realtek RTL8192EU Wireless LAN 802.11n USB 2.0 Network Adapter
+   物理地址. . . . . . . . . . . . . : 30-B4-9E-40-FF-0C
+   DHCP 已启用 . . . . . . . . . . . : 是
+   自动配置已启用. . . . . . . . . . : 是
+
+无线局域网适配器 本地连接* 10:
+
+   媒体状态  . . . . . . . . . . . . : 媒体已断开连接
+   连接特定的 DNS 后缀 . . . . . . . : 
+   描述. . . . . . . . . . . . . . . : Microsoft Wi-Fi Direct Virtual Adapter
+   物理地址. . . . . . . . . . . . . : 32-B4-9E-40-FF-0C
+   DHCP 已启用 . . . . . . . . . . . : 是
+   自动配置已启用. . . . . . . . . . : 是
+
+以太网适配器 以太网:
+
+   连接特定的 DNS 后缀 . . . . . . . : 
+   描述. . . . . . . . . . . . . . . : Realtek PCIe GBE Family Controller
+   物理地址. . . . . . . . . . . . . : 54-E1-AD-48-66-22
+   DHCP 已启用 . . . . . . . . . . . : 否
+   自动配置已启用. . . . . . . . . . : 是
+   本地链接 IPv6 地址. . . . . . . . : fe80::4195:49da:a7ec:9e68%6(首选) 
+   IPv4 地址 . . . . . . . . . . . . : 192.168.0.68(首选) 
+   子网掩码  . . . . . . . . . . . . : 255.255.255.0
+   默认网关. . . . . . . . . . . . . : 192.168.0.1
+   DHCPv6 IAID . . . . . . . . . . . : 324329901
+   DHCPv6 客户端 DUID  . . . . . . . : 00-01-00-01-26-4E-B2-11-54-E1-AD-48-66-22
+   DNS 服务器  . . . . . . . . . . . : 61.128.128.68
+   TCPIP 上的 NetBIOS  . . . . . . . : 已启用
+</code></pre></div><p>分别提取含有&quot;适配器&quot;文字下面的「描述」、「物理地址」、「IP地址」、「子网掩码」、「默认网关」、「DNS 服务器」等信息。某些适配器下面可能实际没有「IP地址」、「子网掩码」、「默认网关」、「DNS 服务器」等，有就提取，没有就略过。</p>
+<h3 id="grammar">Grammar</h3>
+<pre><code class="language-raku" data-lang="raku">unit grammar IPConfig::Grammar;
+
+token TOP { &lt;section&gt;+ %% \n* }
+token section {
+    &lt;header&gt;
+    \n
+    &lt;config&gt;+
+}
+
+token header { ^^ \N+  \n         }
+token config { ^^ \s+ \N+ $$ \n*  }
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-raku" data-lang="raku">unit class IPConfig::Action;
+
+method TOP($/) {
+    make $/&lt;section&gt;».made;
+}
+
+method section($/) {
+    my $configs = $/&lt;config&gt;».made;
+    if $configs.elems &gt; 0 {
+        make ~$/&lt;header&gt;  ~ $configs.join('');
+    } else {
+        make Empty;
+    }
+}
+
+method header($/) {
+    make ~$/;
+}
+
+method config($/ is copy) {
+    my $text = ~$/;
+    if $text.contains(/'描述' | '物理地址' | IPv[4|6] ' ' 地址 | '子网掩码' | DNS ' ' 服务器/) {
+         $/.make(~$/);
+    } else {
+        make Empty;
+    }
+}
+</code></pre><h3 id="提取脚本">提取脚本</h3>
+<pre><code class="language-raku" data-lang="raku">use lib '.';
+use IPConfig::Grammar;
+use IPConfig::Action;
+
+my $ipconfig = IPConfig::Grammar.parsefile(
+    &quot;data/ifconfig.txt&quot;,
+    :actions(IPConfig::Action)
+).made;
+
+.Str.say for @$ipconfig;
+</code></pre><h3 id="输出">输出</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">以太网适配器 本地连接* 9:
+   描述. . . . . . . . . . . . . . . : Sangfor SSL VPN CS Support System VNIC
+   物理地址. . . . . . . . . . . . . : 00-FF-05-0D-13-A2
+
+无线局域网适配器 WLAN:
+   描述. . . . . . . . . . . . . . . : Realtek RTL8192EU Wireless LAN 802.11n USB 2.0 Network Adapter
+   物理地址. . . . . . . . . . . . . : 30-B4-9E-40-FF-0C
+
+无线局域网适配器 本地连接* 10:
+   描述. . . . . . . . . . . . . . . : Microsoft Wi-Fi Direct Virtual Adapter
+   物理地址. . . . . . . . . . . . . : 32-B4-9E-40-FF-0C
+
+以太网适配器 以太网:
+   描述. . . . . . . . . . . . . . . : Realtek PCIe GBE Family Controller
+   物理地址. . . . . . . . . . . . . : 54-E1-AD-48-66-22
+   本地链接 IPv6 地址. . . . . . . . : fe80::4195:49da:a7ec:9e68%6(首选) 
+   IPv4 地址 . . . . . . . . . . . . : 192.168.0.68(首选) 
+   子网掩码  . . . . . . . . . . . . : 255.255.255.0
+   默认网关. . . . . . . . . . . . . : 192.168.0.1
+   DNS 服务器  . . . . . . . . . . . : 61.128.128.68
+</code></pre></div>]]></content>
+            
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://ohmypanda.github.io/tags/grammar" term="grammar" label="Grammar" />
+                            
+                        
+                    
+                
+            
+        </entry>
     
         
         <entry>
@@ -394,81 +555,6 @@ $(&quot;I want this line.&quot;, &quot;and this line as well.&quot;, &quot;HaHa&
 -----------------------------------
 $(&quot;Let's to go home.&quot;,)
 -----------------------------------
-</code></pre>]]></content>
-            
-                 
-                    
-                 
-                    
-                         
-                        
-                            
-                             
-                                <category scheme="https://ohmypanda.github.io/tags/grammar" term="grammar" label="Grammar" />
-                            
-                        
-                    
-                
-            
-        </entry>
-    
-        
-        <entry>
-            <title type="html"><![CDATA[子解析]]></title>
-            <link href="https://ohmypanda.github.io/subparse/" rel="alternate" type="text/html" />
-            
-                <link href="https://ohmypanda.github.io/parse-structured-text/" rel="related" type="text/html" title="解析结构化文本" />
-                <link href="https://ohmypanda.github.io/calc-lang/" rel="related" type="text/html" title="计算器" />
-                <link href="https://ohmypanda.github.io/parse-json/" rel="related" type="text/html" title="解析 JSON" />
-                <link href="https://ohmypanda.github.io/parse-csv/" rel="related" type="text/html" title="检测 CSV 是否有效" />
-                <link href="https://ohmypanda.github.io/card-game-with-action/" rel="related" type="text/html" title="解析带 Action 的纸牌游戏" />
-            
-                <id>https://ohmypanda.github.io/subparse/</id>
-            
-            
-            <published>2020-05-05T21:51:42+08:00</published>
-            <updated>2020-05-05T21:51:42+08:00</updated>
-            
-            
-            <content type="html"><![CDATA[<h3 id="子解析">子解析</h3>
-<p>游标不一定要到达字符串的末尾才算成功。也就是说，它不一定要匹配整个字符串。</p>
-<p><code>subparse</code> 总是返回一个 <strong>Match</strong> 对象</p>
-<pre><code class="language-perl6" data-lang="perl6">method subparse(
-    $target, 
-    :$rule = 'TOP', 
-    Capture() :$args = \(),  
-    Mu :$actions = Mu, 
-    *%opt
-)
-</code></pre><h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar RepeatChar {
-    token start($character) { $character+ }
-}
-</code></pre><h3 id="解析">解析</h3>
-<pre><code class="language-perl6" data-lang="perl6">say RepeatChar.subparse(
-    'bbbabb', 
-    :rule('start'), 
-    :args(\('b'))
-);          # ｢bbb｣
-
-say RepeatChar.parse(
-    'bbbabb', 
-    :rule('start'), 
-    :args(\('b'))
-);          # Nil
-
-say RepeatChar.subparse(
-    'bbbabb', 
-    :rule('start'), 
-    :args(\('a'))
-);          # &lt;failed match&gt;
-
-say RepeatChar.subparse(
-    'bbbabb', 
-    :rule('start'), 
-    :args(\('a')), 
-    :pos(3)
-);          # ｢a｣
 </code></pre>]]></content>
             
                  

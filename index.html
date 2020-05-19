@@ -19,7 +19,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ohmypanda.github.io/" />
-<meta property="og:updated_time" content="2020-05-11T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-05-19T23:41:33+08:00" />
 
 
 <link rel="alternate" type="application/rss+xml" href="/atom.xml" title="焉知非鱼" />
@@ -113,6 +113,162 @@
   
 
   <div class="posts">
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/extract-ipconfig/">提取 ipconfig 命令的部分输出</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-19 23:41:33
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<p>下面这段文本是 <code>IPCONFIG /ALL</code> 命令的输出结果:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Windows IP 配置
+
+   主机名  . . . . . . . . . . . . . : Win10-2020QJFDK
+   主 DNS 后缀 . . . . . . . . . . . : 
+   节点类型  . . . . . . . . . . . . : 混合
+   IP 路由已启用 . . . . . . . . . . : 否
+   WINS 代理已启用 . . . . . . . . . : 否
+
+以太网适配器 本地连接* 9:
+
+   媒体状态  . . . . . . . . . . . . : 媒体已断开连接
+   连接特定的 DNS 后缀 . . . . . . . : 
+   描述. . . . . . . . . . . . . . . : Sangfor SSL VPN CS Support System VNIC
+   物理地址. . . . . . . . . . . . . : 00-FF-05-0D-13-A2
+   DHCP 已启用 . . . . . . . . . . . : 否
+   自动配置已启用. . . . . . . . . . : 是
+
+无线局域网适配器 WLAN:
+
+   媒体状态  . . . . . . . . . . . . : 媒体已断开连接
+   连接特定的 DNS 后缀 . . . . . . . : 
+   描述. . . . . . . . . . . . . . . : Realtek RTL8192EU Wireless LAN 802.11n USB 2.0 Network Adapter
+   物理地址. . . . . . . . . . . . . : 30-B4-9E-40-FF-0C
+   DHCP 已启用 . . . . . . . . . . . : 是
+   自动配置已启用. . . . . . . . . . : 是
+
+无线局域网适配器 本地连接* 10:
+
+   媒体状态  . . . . . . . . . . . . : 媒体已断开连接
+   连接特定的 DNS 后缀 . . . . . . . : 
+   描述. . . . . . . . . . . . . . . : Microsoft Wi-Fi Direct Virtual Adapter
+   物理地址. . . . . . . . . . . . . : 32-B4-9E-40-FF-0C
+   DHCP 已启用 . . . . . . . . . . . : 是
+   自动配置已启用. . . . . . . . . . : 是
+
+以太网适配器 以太网:
+
+   连接特定的 DNS 后缀 . . . . . . . : 
+   描述. . . . . . . . . . . . . . . : Realtek PCIe GBE Family Controller
+   物理地址. . . . . . . . . . . . . : 54-E1-AD-48-66-22
+   DHCP 已启用 . . . . . . . . . . . : 否
+   自动配置已启用. . . . . . . . . . : 是
+   本地链接 IPv6 地址. . . . . . . . : fe80::4195:49da:a7ec:9e68%6(首选) 
+   IPv4 地址 . . . . . . . . . . . . : 192.168.0.68(首选) 
+   子网掩码  . . . . . . . . . . . . : 255.255.255.0
+   默认网关. . . . . . . . . . . . . : 192.168.0.1
+   DHCPv6 IAID . . . . . . . . . . . : 324329901
+   DHCPv6 客户端 DUID  . . . . . . . : 00-01-00-01-26-4E-B2-11-54-E1-AD-48-66-22
+   DNS 服务器  . . . . . . . . . . . : 61.128.128.68
+   TCPIP 上的 NetBIOS  . . . . . . . : 已启用
+</code></pre></div><p>分别提取含有&quot;适配器&quot;文字下面的「描述」、「物理地址」、「IP地址」、「子网掩码」、「默认网关」、「DNS 服务器」等信息。某些适配器下面可能实际没有「IP地址」、「子网掩码」、「默认网关」、「DNS 服务器」等，有就提取，没有就略过。</p>
+<h3 id="grammar">Grammar</h3>
+<pre><code class="language-raku" data-lang="raku">unit grammar IPConfig::Grammar;
+
+token TOP { &lt;section&gt;+ %% \n* }
+token section {
+    &lt;header&gt;
+    \n
+    &lt;config&gt;+
+}
+
+token header { ^^ \N+  \n         }
+token config { ^^ \s+ \N+ $$ \n*  }
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-raku" data-lang="raku">unit class IPConfig::Action;
+
+method TOP($/) {
+    make $/&lt;section&gt;».made;
+}
+
+method section($/) {
+    my $configs = $/&lt;config&gt;».made;
+    if $configs.elems &gt; 0 {
+        make ~$/&lt;header&gt;  ~ $configs.join('');
+    } else {
+        make Empty;
+    }
+}
+
+method header($/) {
+    make ~$/;
+}
+
+method config($/ is copy) {
+    my $text = ~$/;
+    if $text.contains(/'描述' | '物理地址' | IPv[4|6] ' ' 地址 | '子网掩码' | DNS ' ' 服务器/) {
+         $/.make(~$/);
+    } else {
+        make Empty;
+    }
+}
+</code></pre><h3 id="提取脚本">提取脚本</h3>
+<pre><code class="language-raku" data-lang="raku">use lib '.';
+use IPConfig::Grammar;
+use IPConfig::Action;
+
+my $ipconfig = IPConfig::Grammar.parsefile(
+    &quot;data/ifconfig.txt&quot;,
+    :actions(IPConfig::Action)
+).made;
+
+.Str.say for @$ipconfig;
+</code></pre><h3 id="输出">输出</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">以太网适配器 本地连接* 9:
+   描述. . . . . . . . . . . . . . . : Sangfor SSL VPN CS Support System VNIC
+   物理地址. . . . . . . . . . . . . : 00-FF-05-0D-13-A2
+
+无线局域网适配器 WLAN:
+   描述. . . . . . . . . . . . . . . : Realtek RTL8192EU Wireless LAN 802.11n USB 2.0 Network Adapter
+   物理地址. . . . . . . . . . . . . : 30-B4-9E-40-FF-0C
+
+无线局域网适配器 本地连接* 10:
+   描述. . . . . . . . . . . . . . . : Microsoft Wi-Fi Direct Virtual Adapter
+   物理地址. . . . . . . . . . . . . : 32-B4-9E-40-FF-0C
+
+以太网适配器 以太网:
+   描述. . . . . . . . . . . . . . . : Realtek PCIe GBE Family Controller
+   物理地址. . . . . . . . . . . . . : 54-E1-AD-48-66-22
+   本地链接 IPv6 地址. . . . . . . . : fe80::4195:49da:a7ec:9e68%6(首选) 
+   IPv4 地址 . . . . . . . . . . . . : 192.168.0.68(首选) 
+   子网掩码  . . . . . . . . . . . . : 255.255.255.0
+   默认网关. . . . . . . . . . . . . : 192.168.0.1
+   DNS 服务器  . . . . . . . . . . . : 61.128.128.68
+</code></pre></div>
+        
+      
+      </div>
+    
+    </div>
     
     
     <div class="post on-list chat">
@@ -1691,111 +1847,6 @@ Obs:
     
     </div>
     
-    
-    <div class="post on-list coding">
-    
-      <h1 class="post-title"><a href="https://ohmypanda.github.io/trips/">解析行程数据</a></h1>
-      <div class="post-meta">
-        
-          <span class="post-date">
-            2020-05-05 00:00:00
-          </span>
-        
-
-        
-        <span class="">
-          
-            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
-          
-        </span>
-        
-      </div>
-
-      
-
-      <div class="post-content $PostCate">
-      
-        <h3 id="行程数据">行程数据</h3>
-<pre><code>Russia
-    Vladivostok : 43.131621,131.923828 : 4
-    Ulan Ude : 51.841624,107.608101 : 2
-    Saint Petersburg : 59.939977,30.315785 : 10
-Norway
-    Oslo : 59.914289,10.738739 : 2
-    Bergen : 60.388533,5.331856 : 4
-Ukraine
-    Kiev : 50.456001,30.50384 : 3
-Switzerland
-    Wengen : 46.608265,7.922065 : 3
-    Bern : 46.949076,7.448151 : 1
-</code></pre><h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar SalesExport {
-    token TOP { ^ &lt;country&gt;+ $ }
-    token country {
-        &lt;name&gt; \n
-        &lt;destination&gt;+
-    }
-    token destination {
-        \s+ &lt;name&gt; \s+ ':' \s+
-        &lt;lat=.num&gt; ',' &lt;long=.num&gt; \s+ ':' \s+
-        &lt;sales=.integer&gt; \n
-    }
-    token name    { \w+ [ \s \w+ ]*   }
-    token num     { '-'? \d+ [\.\d+]? }
-    token integer { '-'? \d+          }
-}
-</code></pre><h3 id="action">Action</h3>
-<pre><code class="language-perl6" data-lang="perl6">class SalesExport::Action  {
-	method destination($/) { make ~$&lt;dname&gt; =&gt; [$&lt;sales&gt;.map(*.Num+10),$&lt;lat&gt;.map(*.Num+90) ] }
-    method country($/)     { make ~$&lt;cname&gt; =&gt; $&lt;destination&gt;&gt;&gt;.made            }
-    method TOP($/)         { make $&lt;country&gt;&gt;&gt;.made                             }
-}
-</code></pre><h3 id="提取信息">提取信息</h3>
-<pre><code class="language-perl6" data-lang="perl6">my $actions = SalesExport::Grammar::Actions.new;
-my $grammar_action = SalesExport::Grammar.parse($string, :actions($actions)).made;
-#say $grammar_action.Str;
-# 获取所有国家的名字
-for @$grammar_action -&gt; $p {
-    say &quot;$p.key()&quot;;
-}
-say '-' x 45;
-# 获取所有目的地
-for @$grammar_action -&gt; $p {
-    for $p.value() -&gt; $d {
-	    for @$d -&gt; $n {
-		    say $n.key();
-		}
-	}
-}
-say '-' x 45;
-# 获取出售的票数
-for @$grammar_action -&gt; $p {
-    print &quot;$p.key()\t&quot;;
-    for $p.value() -&gt; $d {
-	    my $count;
-	    for @$d -&gt; $n {
-		    $count += $n.value()[0];
-		}
-	say $count;
-	}
-}
-
-say '-' x 45;
-# 获取经度 lat
-for @$grammar_action -&gt; $p {
-    for $p.value() -&gt; $d {
-	    for @$d -&gt; $n {
-		    say $n.value()[1];
-		}
-	}
-}
-</code></pre>
-        
-      
-      </div>
-    
-    </div>
-    
     <div class="pagination">
   <div class="pagination__buttons">
     
@@ -1863,11 +1914,13 @@ for @$grammar_action -&gt; $p {
 
     
 
+    
+
 
 <footer class="footer">
   <div class="footer__inner">
     <div class="copyright">
-      <span>共 20 篇文章</span><span> 3914 字</span>
+      <span>共 21 篇文章</span><span> 5390 字</span>
     </div>
     
       <div class="copyright">
