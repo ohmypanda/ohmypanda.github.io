@@ -7,12 +7,47 @@
             <link href="https://ohmypanda.github.io/atom.xml" rel="self" type="application/rss+xml" title="atom" />
             <link href="https://ohmypanda.github.io/" rel="alternate" type="text/html" title="HTML" />
             <link href="https://ohmypanda.github.io/index.json" rel="alternate" type="application/json" title="JSON" />
-    <updated>2020-05-19T23:51:28+08:00</updated>
+    <updated>2020-06-09T22:54:48+08:00</updated>
     
     
     
     
         <id>https://ohmypanda.github.io/atom.xml</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[大兴]]></title>
+            <link href="https://ohmypanda.github.io/2020-06-09/" rel="alternate" type="text/html" />
+            
+            
+                <id>https://ohmypanda.github.io/2020-06-09/</id>
+            
+            
+            <published>2020-06-09T00:00:00+00:00</published>
+            <updated>2020-06-09T00:00:00+00:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/w7_268692.jpg@596w_1l.jpg" alt="img"  /></p>
+<p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/wa_268705.jpg@596w_1l.jpg" alt="img"  /></p>
+<p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/v2_268537.jpg@596w_1l.jpg" alt="img"  /></p>
+<p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/tv_268496.jpg@596w_1l.jpg" alt="img"  /></p>
+]]></content>
+            
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://ohmypanda.github.io/tags/%E5%A4%A7%E5%85%B4" term="%E5%A4%A7%E5%85%B4" label="大兴" />
+                            
+                        
+                    
+                
+            
+        </entry>
     
         
         <entry>
@@ -468,92 +503,6 @@ for @$parsed -&gt; $line {
 $[&quot;I want this line.&quot;, &quot;and this line as well.&quot;, &quot;HaHa.&quot;]
 -----------------------------------
 $[&quot;Let's to go home.&quot;]
------------------------------------
-</code></pre>]]></content>
-            
-                 
-                    
-                 
-                    
-                         
-                        
-                            
-                             
-                                <category scheme="https://ohmypanda.github.io/tags/grammar" term="grammar" label="Grammar" />
-                            
-                        
-                    
-                
-            
-        </entry>
-    
-        
-        <entry>
-            <title type="html"><![CDATA[提取文本块儿]]></title>
-            <link href="https://ohmypanda.github.io/extract-sections/" rel="alternate" type="text/html" />
-            
-                <link href="https://ohmypanda.github.io/subparse/" rel="related" type="text/html" title="子解析" />
-                <link href="https://ohmypanda.github.io/parse-structured-text/" rel="related" type="text/html" title="解析结构化文本" />
-                <link href="https://ohmypanda.github.io/calc-lang/" rel="related" type="text/html" title="计算器" />
-                <link href="https://ohmypanda.github.io/parse-json/" rel="related" type="text/html" title="解析 JSON" />
-                <link href="https://ohmypanda.github.io/parse-csv/" rel="related" type="text/html" title="检测 CSV 是否有效" />
-            
-                <id>https://ohmypanda.github.io/extract-sections/</id>
-            
-            
-            <published>2020-05-05T22:11:48+08:00</published>
-            <updated>2020-05-05T22:11:48+08:00</updated>
-            
-            
-            <content type="html"><![CDATA[<h3 id="数据样例">数据样例</h3>
-<pre><code>Here's some unimportant text.
-=begin code
-This code block is what we're after.
-We'll use 'ff' to get it.
-=end code
-More unimportant text.
-=begin code
-I want this line.
-and this line as well.
-HaHa
-=end code
-More unimport text.
-=begin code
-Let's to go home.
-=end code
-</code></pre><p>要求提取 <code>=begin code</code> 和 <code>=end code</code> 之间的文本块儿。</p>
-<h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar ExtractSection {
-  token start   { ^^ '=begin code' \n          }
-  token finish  { ^^ '=end code' \n            }
-  token line    { ^^ \N+)&gt; \n                  }
-  token section { &lt;start&gt; ~ &lt;finish&gt; &lt;line&gt;+?  }
-  token comment { ^^\N+ \n                     }
-  token TOP     { [&lt;section&gt; || &lt;comment&gt;]+    } 
-}
-</code></pre><h3 id="action">Action</h3>
-<pre><code class="language-perl6" data-lang="perl6">class ExtractSectionAction {
-    method TOP($/)     { make @&lt;section&gt;».ast.List }
-    method section($/) { make ~«@&lt;line&gt;.List       }
-    method line($/)    { make ~$/.trim             }
-    method comment($/) { make Empty                }
-}
-</code></pre><h3 id="提取">提取</h3>
-<pre><code class="language-perl6" data-lang="perl6">my $em = ExtractSection.parse(
-    $excerpt, 
-    :actions(ExtractSectionAction)
-).ast;
-
-for @$em -&gt; $line {
-    say $line.perl;
-    say '-' x 35;
-}
-</code></pre><h3 id="输出">输出</h3>
-<pre><code>$(&quot;This code block is what we're after.&quot;, &quot;We'll use 'ff' to get it.&quot;)
------------------------------------
-$(&quot;I want this line.&quot;, &quot;and this line as well.&quot;, &quot;HaHa&quot;)
------------------------------------
-$(&quot;Let's to go home.&quot;,)
 -----------------------------------
 </code></pre>]]></content>
             

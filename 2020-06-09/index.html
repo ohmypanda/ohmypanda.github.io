@@ -2,30 +2,30 @@
 <html lang="zh-CN">
   <head>
     
-      <title>提取文本块儿 :: 焉知非鱼</title>
+      <title>大兴 :: 焉知非鱼</title>
     
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="数据样例 Here&#39;s some unimportant text. =begin code This code block is what we&#39;re after. We&#39;ll use &#39;ff&#39; to get it. =end code More unimportant text. =begin code I want this line. and this line as well. HaHa =end code More unimport text. =begin code Let&#39;s to go home. =end code 要求提取 =begin code 和 =end code 之间的文本块儿。 Grammar grammar ExtractSection { token start { ^^ &#39;=begin code&#39; \n } token finish { ^^ &#39;=end code&#39; \n } token line { ^^ \N&#43;)&amp;gt; \n } token section { &amp;lt;start&amp;gt; ~ &amp;lt;finish&amp;gt; &amp;lt;line&amp;gt;&#43;? } token comment { ^^\N&#43; \n } token TOP { [&amp;lt;section&amp;gt; || &amp;lt;comment&amp;gt;]&#43; } } Action class ExtractSectionAction { method TOP($/) { make @&amp;lt;section&amp;gt;».ast.List } method section($/) { make ~«@&amp;lt;line&amp;gt;.List } method line($/) { make ~$/.trim } method comment($/) { make Empty } } 提取 my $em = ExtractSection.parse( $excerpt, :actions(ExtractSectionAction) ).ast; for @$em -&amp;gt; $line { say $line.perl; say &#39;-&#39; x 35; } 输出 $(&amp;quot;This code block is what we&#39;re after.&amp;quot;, &amp;quot;We&#39;ll use &#39;ff&#39; to get it.&amp;quot;) ----------------------------------- $(&amp;quot;I want this line.&amp;quot;, &amp;quot;and this line as well.&amp;quot;, &amp;quot;HaHa&amp;quot;) ----------------------------------- $(&amp;quot;Let&#39;s to go home.&amp;quot;,) -----------------------------------"/>
+<meta name="description" content=""/>
 <meta name="keywords" content=""/>
 <meta name="referrer" content="never" />
-<link rel="canonical" href="https://ohmypanda.github.io/extract-sections/" />
+<link rel="canonical" href="https://ohmypanda.github.io/2020-06-09/" />
 <link rel="stylesheet" href="https://ohmypanda.github.io/style.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:500&display=swap" media="print" onload="this.media='all'">
 <link rel="shortcut icon" href="https://ohmypanda.github.io/favicon.ico">
 
-<meta property="og:title" content="提取文本块儿" />
-<meta property="og:description" content="数据样例 Here&#39;s some unimportant text. =begin code This code block is what we&#39;re after. We&#39;ll use &#39;ff&#39; to get it. =end code More unimportant text. =begin code I want this line. and this line as well. HaHa =end code More unimport text. =begin code Let&#39;s to go home. =end code 要求提取 =begin code 和 =end code 之间的文本块儿。 Grammar grammar ExtractSection { token start { ^^ &#39;=begin code&#39; \n } token finish { ^^ &#39;=end code&#39; \n } token line { ^^ \N&#43;)&gt; \n } token section { &lt;start&gt; ~ &lt;finish&gt; &lt;line&gt;&#43;? } token comment { ^^\N&#43; \n } token TOP { [&lt;section&gt; || &lt;comment&gt;]&#43; } } Action class ExtractSectionAction { method TOP($/) { make @&lt;section&gt;».ast.List } method section($/) { make ~«@&lt;line&gt;.List } method line($/) { make ~$/.trim } method comment($/) { make Empty } } 提取 my $em = ExtractSection.parse( $excerpt, :actions(ExtractSectionAction) ).ast; for @$em -&gt; $line { say $line.perl; say &#39;-&#39; x 35; } 输出 $(&quot;This code block is what we&#39;re after.&quot;, &quot;We&#39;ll use &#39;ff&#39; to get it.&quot;) ----------------------------------- $(&quot;I want this line.&quot;, &quot;and this line as well.&quot;, &quot;HaHa&quot;) ----------------------------------- $(&quot;Let&#39;s to go home.&quot;,) -----------------------------------" />
+<meta property="og:title" content="大兴" />
+<meta property="og:description" content="" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ohmypanda.github.io/extract-sections/" />
-<meta property="article:published_time" content="2020-05-05T22:11:48+08:00" />
-<meta property="article:modified_time" content="2020-05-05T22:11:48+08:00" />
+<meta property="og:url" content="https://ohmypanda.github.io/2020-06-09/" />
+<meta property="article:published_time" content="2020-06-09T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-06-09T00:00:00+00:00" />
 
 
 
     
-  <link rel="prefetch" href="https://ohmypanda.github.io/extract-sections-again/">
-  <link rel="prefetch" href="https://ohmypanda.github.io/subparse/">
+  
+  <link rel="prefetch" href="https://ohmypanda.github.io/extract-ipconfig/">
 
   </head>
   <body class="">
@@ -106,7 +106,7 @@
   
   
   
-  <div class="post coding">
+  <div class="post chat">
     <div  class="breadcrumb">
   
 
@@ -127,98 +127,41 @@
 
 
 <li>
-  <a href="https://ohmypanda.github.io/posts/coding/">楽土</a>
+  <a href="https://ohmypanda.github.io/posts/chat/">图片</a>
 </li>
 
 
 <li class="active">
-  <a href="https://ohmypanda.github.io/extract-sections/">提取文本块儿</a>
+  <a href="https://ohmypanda.github.io/2020-06-09/">大兴</a>
 </li>
 
 </div>
 
 
   
-    <h2 class="post-title"><a href="https://ohmypanda.github.io/extract-sections/">提取文本块儿</a></h2>
-    <div class="post-meta">
-      
-        <span class="post-date">
-          2020-05-05 22:11:48
-        </span>
+            <div class="post-meta">
+        
+          <span class="post-date">
+            2020-06-09 00:00:00
+          </span>
+        
 
         
+        <span class="">
           
+            #<a href="https://ohmypanda.github.io/tags/%E5%A4%A7%E5%85%B4/">大兴</a>&nbsp;
+          
+        </span>
         
-      <span> / <span class="valine-comment-count" data-xid="/extract-sections/">0</span> 评论 / <span id="/extract-sections/" class="leancloud_visitors" data-flag-title="提取文本块儿"><span class="leancloud-visitors-count">0</span> 阅读</span></span>
-        
-    </div>
+      </div>
+      <div class="post-content">
+        <a href="https://ohmypanda.github.io/2020-06-09/" rel="link"><img loading="lazy" class="post-avatar avatar" src=https://gravatar.loli.net/avatar/ba83fa02fc4b2ba621514941307e21be ></a>
+          <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/w7_268692.jpg@596w_1l.jpg" alt="img"  /></p>
+<p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/wa_268705.jpg@596w_1l.jpg" alt="img"  /></p>
+<p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/v2_268537.jpg@596w_1l.jpg" alt="img"  /></p>
+<p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/tv_268496.jpg@596w_1l.jpg" alt="img"  /></p>
 
-    
-  
-    <div class="post-content">
-      <h3 id="数据样例">数据样例</h3>
-<pre><code>Here's some unimportant text.
-=begin code
-This code block is what we're after.
-We'll use 'ff' to get it.
-=end code
-More unimportant text.
-=begin code
-I want this line.
-and this line as well.
-HaHa
-=end code
-More unimport text.
-=begin code
-Let's to go home.
-=end code
-</code></pre><p>要求提取 <code>=begin code</code> 和 <code>=end code</code> 之间的文本块儿。</p>
-<h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar ExtractSection {
-  token start   { ^^ '=begin code' \n          }
-  token finish  { ^^ '=end code' \n            }
-  token line    { ^^ \N+)&gt; \n                  }
-  token section { &lt;start&gt; ~ &lt;finish&gt; &lt;line&gt;+?  }
-  token comment { ^^\N+ \n                     }
-  token TOP     { [&lt;section&gt; || &lt;comment&gt;]+    } 
-}
-</code></pre><h3 id="action">Action</h3>
-<pre><code class="language-perl6" data-lang="perl6">class ExtractSectionAction {
-    method TOP($/)     { make @&lt;section&gt;».ast.List }
-    method section($/) { make ~«@&lt;line&gt;.List       }
-    method line($/)    { make ~$/.trim             }
-    method comment($/) { make Empty                }
-}
-</code></pre><h3 id="提取">提取</h3>
-<pre><code class="language-perl6" data-lang="perl6">my $em = ExtractSection.parse(
-    $excerpt, 
-    :actions(ExtractSectionAction)
-).ast;
-
-for @$em -&gt; $line {
-    say $line.perl;
-    say '-' x 35;
-}
-</code></pre><h3 id="输出">输出</h3>
-<pre><code>$(&quot;This code block is what we're after.&quot;, &quot;We'll use 'ff' to get it.&quot;)
------------------------------------
-$(&quot;I want this line.&quot;, &quot;and this line as well.&quot;, &quot;HaHa&quot;)
------------------------------------
-$(&quot;Let's to go home.&quot;,)
------------------------------------
-</code></pre>
-      
-    </div>
-  
-    
-
-    
-      <span class="post-tags">
-        
-          #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
-        
-      </span>
-    
+      </div>
   
     <div class="clear"></div>
     
@@ -227,23 +170,16 @@ $(&quot;Let's to go home.&quot;,)
         <div class="pagination">
           <div class="pagination__title">
             
-              <a class="pagination__title-h" href="https://github.com/lmm214/immmmm/edit/master/content/posts/coding/extract-sections.md" target="_blank" rel="noopener">阅读更多</a>
+              <a class="pagination__title-h" href="https://github.com/lmm214/immmmm/edit/master/content/posts/chat/2020-06-09.md" target="_blank" rel="noopener">阅读更多</a>
             
             <hr />
           </div>
           <div class="pagination__buttons">
             
-              <span class="button previous">
-                <a href="https://ohmypanda.github.io/extract-sections-again/">
-                  <span class="button__icon">←</span>
-                  <span class="button__text">再用 %% 提取文本块儿</span>
-                </a>
-              </span>
-            
             
               <span class="button next">
-                <a href="https://ohmypanda.github.io/subparse/">
-                  <span class="button__text">子解析</span>
+                <a href="https://ohmypanda.github.io/extract-ipconfig/">
+                  <span class="button__text">提取 ipconfig 命令的部分输出</span>
                   <span class="button__icon">→</span>
                 </a>
               </span>
@@ -256,7 +192,7 @@ $(&quot;Let's to go home.&quot;,)
 
     
           <div class="pagination__title">
-       <span class="pagination__title-h"><span class="valine-comment-count" data-xid="/extract-sections/"></span> 条评论</span>
+       <span class="pagination__title-h"><span class="valine-comment-count" data-xid="/2020-06-09/"></span> 条评论</span>
        <hr />
   </div>
   <div id="comments"></div>
