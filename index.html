@@ -19,7 +19,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ohmypanda.github.io/" />
-<meta property="og:updated_time" content="2020-06-09T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-06-10T00:00:00+00:00" />
 
 
 <link rel="alternate" type="application/rss+xml" href="/atom.xml" title="焉知非鱼" />
@@ -120,6 +120,31 @@
             <div class="post-meta">
         
           <span class="post-date">
+            2020-06-10 00:00:00
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/rust/">Rust</a>&nbsp;
+          
+        </span>
+        
+      </div>
+      <div class="post-content $PostCate">
+        <a href="https://ohmypanda.github.io/2020-06-10/" rel="link"><img loading="lazy" class="post-avatar avatar" src=https://gravatar.loli.net/avatar/ba83fa02fc4b2ba621514941307e21be ></a>
+          太难了，Rust 太难了。 Rust 怎么这么难啊！ 真的太难了。 磕学家才学得会。
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list chat">
+    
+            <div class="post-meta">
+        
+          <span class="post-date">
             2020-06-09 00:00:00
           </span>
         
@@ -134,7 +159,7 @@
       </div>
       <div class="post-content $PostCate">
         <a href="https://ohmypanda.github.io/2020-06-09/" rel="link"><img loading="lazy" class="post-avatar avatar" src=https://gravatar.loli.net/avatar/ba83fa02fc4b2ba621514941307e21be ></a>
-          
+          照片:
       </div>
     
     </div>
@@ -1715,81 +1740,6 @@ say $parse&lt;line&gt;;
     
     </div>
     
-    
-    <div class="post on-list coding">
-    
-      <h1 class="post-title"><a href="https://ohmypanda.github.io/ini-parser/">解析 INI 文件</a></h1>
-      <div class="post-meta">
-        
-          <span class="post-date">
-            2020-05-05 18:42:52
-          </span>
-        
-
-        
-        <span class="">
-          
-            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
-          
-        </span>
-        
-      </div>
-
-      
-
-      <div class="post-content $PostCate">
-      
-        <h3 id="ini-数据">INI 数据</h3>
-<pre><code>access=user
-;; more details of user below
-[person]
-name=john doe
-address=555 Canndy Lane
-</code></pre><h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar IniFile {
-    token key     { \w+ }
-    token value   { &lt;!before \s&gt; &lt;-[\n;]&gt;+ &lt;!after \s&gt; }
-    token pair    { &lt;key&gt; \h* '=' \h* &lt;value&gt; \n+      }
-    token header  { '[' &lt;-[ \[ \] \n ]&gt;+ ']' \n+       }
-    token comment { ';' \N*\n+                         }
-    token block   { [&lt;pair&gt; | &lt;comment&gt;]*              }
-    token section { &lt;header&gt; &lt;block&gt;                   }
-    token TOP     { &lt;block&gt; &lt;section&gt;*                 }
-}
-</code></pre><h3 id="action">Action</h3>
-<pre><code class="language-perl6" data-lang="perl6">class IniFile::Action  {
-    method key($/)     { make $/.Str }
-    method value($/)   { make $/.Str }
-    method headse($/)  { make $/.Str }
-    method pair($/)    { make $&lt;key&gt;.made =&gt; $&lt;value&gt;.made }
-    method block($/)   { make $&lt;pair&gt;.map({ .made }).hash  }
-    method section($/) { make $&lt;header&gt;.made =&gt; $&lt;block&gt;.made }
-    method TOP($/) {
-        make {
-            _ =&gt; $&lt;block&gt;.made,
-            $&lt;section&gt;.map: { .made },
-        }
-    }
-}
-</code></pre><h3 id="提取信息">提取信息</h3>
-<pre><code class="language-perl6" data-lang="perl6">sub parse-ini(Str $input) {
-    my $m = IniFile.parse( $input, :actions(IniFile::Action) );
-    unless $m {
-        die &quot;the input is not a valid INI file&quot;;
-    }
-    return $m.made;
-}
-
-sub MAIN() {
-    say parse-ini($example);
-}
-</code></pre>
-        
-      
-      </div>
-    
-    </div>
-    
     <div class="pagination">
   <div class="pagination__buttons">
     
@@ -1865,7 +1815,7 @@ sub MAIN() {
 <footer class="footer">
   <div class="footer__inner">
     <div class="copyright">
-      <span>共 22 篇文章</span><span> 5390 字</span>
+      <span>共 23 篇文章</span><span> 5392 字</span>
     </div>
     
       <div class="copyright">

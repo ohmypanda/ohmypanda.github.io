@@ -7,12 +7,47 @@
             <link href="https://ohmypanda.github.io/atom.xml" rel="self" type="application/rss+xml" title="atom" />
             <link href="https://ohmypanda.github.io/" rel="alternate" type="text/html" title="HTML" />
             <link href="https://ohmypanda.github.io/index.json" rel="alternate" type="application/json" title="JSON" />
-    <updated>2020-06-09T22:54:48+08:00</updated>
+    <updated>2020-06-10T22:50:44+08:00</updated>
     
     
     
     
         <id>https://ohmypanda.github.io/atom.xml</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Rust]]></title>
+            <link href="https://ohmypanda.github.io/2020-06-10/" rel="alternate" type="text/html" />
+            
+            
+                <id>https://ohmypanda.github.io/2020-06-10/</id>
+            
+            
+            <published>2020-06-10T00:00:00+00:00</published>
+            <updated>2020-06-10T00:00:00+00:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>太难了，Rust 太难了。
+Rust 怎么这么难啊！
+真的太难了。
+磕学家才学得会。</p>
+]]></content>
+            
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://ohmypanda.github.io/tags/rust" term="rust" label="Rust" />
+                            
+                        
+                    
+                
+            
+        </entry>
     
         
         <entry>
@@ -27,7 +62,8 @@
             <updated>2020-06-09T00:00:00+00:00</updated>
             
             
-            <content type="html"><![CDATA[<p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/w7_268692.jpg@596w_1l.jpg" alt="img"  /></p>
+            <content type="html"><![CDATA[<p>照片:</p>
+<p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/w7_268692.jpg@596w_1l.jpg" alt="img"  /></p>
 <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/wa_268705.jpg@596w_1l.jpg" alt="img"  /></p>
 <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/v2_268537.jpg@596w_1l.jpg" alt="img"  /></p>
 <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/tv_268496.jpg@596w_1l.jpg" alt="img"  /></p>
@@ -374,136 +410,6 @@ my $parsed = Section::Grammar.parsefile(
 710,720,715
 321,654,987
 312,555
-</code></pre>]]></content>
-            
-                 
-                    
-                 
-                    
-                         
-                        
-                            
-                             
-                                <category scheme="https://ohmypanda.github.io/tags/grammar" term="grammar" label="Grammar" />
-                            
-                        
-                    
-                
-            
-        </entry>
-    
-        
-        <entry>
-            <title type="html"><![CDATA[再用 %% 提取文本块儿]]></title>
-            <link href="https://ohmypanda.github.io/extract-sections-again/" rel="alternate" type="text/html" />
-            
-                <link href="https://ohmypanda.github.io/extract-sections-with-double-percent/" rel="related" type="text/html" title="使用 %% 提取文本块儿" />
-                <link href="https://ohmypanda.github.io/extract-sections/" rel="related" type="text/html" title="提取文本块儿" />
-                <link href="https://ohmypanda.github.io/subparse/" rel="related" type="text/html" title="子解析" />
-                <link href="https://ohmypanda.github.io/parse-structured-text/" rel="related" type="text/html" title="解析结构化文本" />
-                <link href="https://ohmypanda.github.io/calc-lang/" rel="related" type="text/html" title="计算器" />
-            
-                <id>https://ohmypanda.github.io/extract-sections-again/</id>
-            
-            
-            <published>2020-05-06T14:14:08+08:00</published>
-            <updated>2020-05-06T14:14:08+08:00</updated>
-            
-            
-            <content type="html"><![CDATA[<h3 id="数据样例">数据样例</h3>
-<pre><code>Here's some unimportant text.
-=begin code
-This code block is what we're after.
-We'll use 'ff' to get it.
-=end code
-More unimportant text.
-=begin code
-I want this line.
-and this line as well.
-HaHa.
-=end code
-More unimport text.
-=begin code
-Let's to go home.
-=end code
-</code></pre><h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">use Grammar::Debugger;
-use Grammar::Tracer;
-
-unit grammar Range::Grammar;
-
-token TOP {
-   ^  &lt;un-important-line&gt;+ %% &lt;section&gt; $
-}
-
-token section {
-   &lt;begin&gt; ~ &lt;end&gt; &lt;line&gt;+?
-}
-
-token un-important-line {
-    ^^ \N+ )&gt; \n*
-}
-
-token line {
-    ^^ \N+ )&gt; \n*
-}
-
-token begin {
-    ^^ '=begin code' $$ \n*
-}
-
-token end {
-    ^^ '=end code' $$ \n*
-}
-</code></pre><h3 id="action">Action</h3>
-<pre><code class="language-perl6" data-lang="perl6">unit class Range::Actions;
-
-method TOP($/) {
-     make $/.values».made;
-}
-
-method section($/) {
-    make $/&lt;line&gt;».made;
-}
-
-method line($/) {
-    make ~$/.trim;
-}
-
-method un-important-line($/) {
-    make Empty;
-}
-
-method begin($/) {
-    make Empty;
-}
-
-method end($/) {
-    make Empty;
-}
-</code></pre><h3 id="提取">提取</h3>
-<pre><code class="language-perl6" data-lang="perl6">#!/usr/bin/env perl6
-
-use lib '.';
-use Range::Grammar;
-use Range::Actions;
-
-my $parsed = Range::Grammar.parsefile(
-        @*ARGS[0] // 'data/flip-flop.txt',
-        :actions(Range::Actions)
-        ).made;
-
-for @$parsed -&gt; $line {
-    say $line.raku;
-    say '-' x 35;
-}
-</code></pre><h3 id="输出">输出</h3>
-<pre><code>$[&quot;This code block is what we're after.&quot;, &quot;We'll use 'ff' to get it.&quot;]
------------------------------------
-$[&quot;I want this line.&quot;, &quot;and this line as well.&quot;, &quot;HaHa.&quot;]
------------------------------------
-$[&quot;Let's to go home.&quot;]
------------------------------------
 </code></pre>]]></content>
             
                  
