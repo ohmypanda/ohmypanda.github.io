@@ -13,7 +13,17 @@
   </url>
   
   <url>
+    <loc>https://ohmypanda.github.io/posts/reading/</loc>
+    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ohmypanda.github.io/tags/</loc>
+    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ohmypanda.github.io/2020-06-11/</loc>
     <lastmod>2020-06-11T00:00:00+00:00</lastmod>
   </url>
   
@@ -196,10 +206,6 @@
   
   <url>
     <loc>https://ohmypanda.github.io/posts/</loc>
-  </url>
-  
-  <url>
-    <loc>https://ohmypanda.github.io/posts/reading/</loc>
   </url>
   
 </urlset>

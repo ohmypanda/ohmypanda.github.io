@@ -147,6 +147,38 @@
     </div>
     
     
+    <div class="post on-list reading">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/2020-06-11/">语法</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-06-11 00:00:00
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/rust/">Rust</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <p>Rust 语法太难记了, 反直觉。又哭了。</p>
+
+        
+      
+      </div>
+    
+    </div>
+    
+    
     <div class="post on-list /">
     
       <h1 class="post-title"><a href="https://ohmypanda.github.io/about/">关于</a></h1>
@@ -429,7 +461,7 @@ my $ipconfig = IPConfig::Grammar.parsefile(
       </div>
       <div class="post-content $PostCate">
         <a href="https://ohmypanda.github.io/2020-05-11/" rel="link"><img loading="lazy" class="post-avatar avatar" src=https://gravatar.loli.net/avatar/ba83fa02fc4b2ba621514941307e21be ></a>
-          专门用于记录 Raku 中的 Awesome。
+          Less Than Awesome.
       </div>
     
     </div>
@@ -1537,70 +1569,6 @@ for @($parsed&lt;university&gt;&lt;info&gt;) -&gt; $u {
     
     </div>
     
-    
-    <div class="post on-list coding">
-    
-      <h1 class="post-title"><a href="https://ohmypanda.github.io/key-value-pairs/">解析键值对儿</a></h1>
-      <div class="post-meta">
-        
-          <span class="post-date">
-            2020-05-05 20:17:10
-          </span>
-        
-
-        
-        <span class="">
-          
-            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
-          
-        </span>
-        
-      </div>
-
-      
-
-      <div class="post-content $PostCate">
-      
-        <h3 id="数据样例">数据样例</h3>
-<pre><code>version=6.d
-backend=MoarVM
-disto=Rakudo Star
-</code></pre><h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar KeyValuePairs {
-    token TOP {
-        [&lt;pair&gt; \v+]*
-    }
-
-    token pair {
-        &lt;key=.identifier&gt; '=' &lt;value=.identifier&gt;
-    }
-
-    token identifier {
-        \w+
-    }
-}
-</code></pre><h3 id="action">Action</h3>
-<pre><code class="language-perl6" data-lang="perl6">class KeyValuePairsActions {
-    method pair      ($/) {
-        $/.make: $&lt;key&gt;.made =&gt; $&lt;value&gt;.made
-    }
-    method identifier($/) {
-        # subroutine `make` is the same as calling .make on $/
-        make ~$/
-    }
-
-    method TOP ($match) {
-        # can use any variable name for parameter, not just $/
-        $match.make: $match&lt;pair&gt;».made
-    }
-}
-</code></pre>
-        
-      
-      </div>
-    
-    </div>
-    
     <div class="pagination">
   <div class="pagination__buttons">
     
@@ -1678,11 +1646,13 @@ disto=Rakudo Star
 
     
 
+    
+
 
 <footer class="footer">
   <div class="footer__inner">
     <div class="copyright">
-      <span>共 25 篇文章</span><span> 5452 字</span>
+      <span>共 26 篇文章</span><span> 5454 字</span>
     </div>
     
       <div class="copyright">

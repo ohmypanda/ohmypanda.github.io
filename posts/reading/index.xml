@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>育人 on 焉知非鱼</title>
+    <title>不读书 on 焉知非鱼</title>
     <link>https://ohmypanda.github.io/posts/reading/</link>
-    <description>Recent content in 育人 on 焉知非鱼</description>
+    <description>Recent content in 不读书 on 焉知非鱼</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
+    <lastBuildDate>Thu, 11 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://ohmypanda.github.io/posts/reading/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>语法</title>
+      <link>https://ohmypanda.github.io/2020-06-11/</link>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ohmypanda.github.io/2020-06-11/</guid>
+      <description>Rust 语法太难记了, 反直觉。又哭了。</description>
+    </item>
     
   </channel>
 </rss>
