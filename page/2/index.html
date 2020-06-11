@@ -27,7 +27,7 @@
 
     
   <link rel="prefetch" href="/">
-  
+  <link rel="prefetch" href="/page/3/">
 
   </head>
   <body class="">
@@ -113,6 +113,198 @@
   
 
   <div class="posts">
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/calc-lang/">计算器</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 21:27:02
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>x = 40 + 2;
+print x;
+
+y = x - (5/2);
+print y;
+
+z = 1 + y * x;
+print z;
+
+print 14 - 16/3 + x;
+</code></pre><p>目录结构如下:</p>
+<pre><code>.
+├── Lang
+│   ├── Actions.pm6
+│   └── Grammar.pm6
+├── data
+│   ├── calc.lang
+</code></pre><h3 id="grammar">Grammar</h3>
+<p><strong>Grammar.pm6</strong> 的内容如下:</p>
+<pre><code class="language-perl6" data-lang="perl6">unit grammar Lang::Grammar;
+
+rule TOP {
+    ^ &lt;statements&gt; $
+}
+
+rule statements {
+    &lt;statement&gt;+ %% ';'
+}
+
+rule statement {
+    | &lt;assignment&gt;
+    | &lt;printout&gt;
+}
+
+rule assignment {
+    &lt;identifier&gt; '=' &lt;expression&gt;
+}
+
+rule printout {
+    'print' &lt;expression&gt;
+}
+
+rule expression {
+    | &lt;term&gt;+ %% $&lt;op&gt;=(['+'|'-'])
+    | &lt;group&gt;
+}
+
+rule term {
+    &lt;factor&gt;+  %% $&lt;op&gt;=(['*'|'/'])
+}
+
+rule factor {
+    | &lt;identifier&gt;
+    | &lt;value&gt;
+    | &lt;group&gt;
+}
+
+rule group {
+    '(' &lt;expression&gt; ')'
+}
+
+token identifier {
+    (&lt;:alpha&gt;+)
+}
+
+token value {
+    (
+    | \d+['.' \d+]?
+    | '.' \d+
+    )
+}
+</code></pre><h3 id="action">Action</h3>
+<p><strong>Actions.pm6</strong> 的内容如下:</p>
+<pre><code class="language-perl6" data-lang="perl6">unit class Lang::Actions;
+
+has %.var;
+
+method assignment($/) {
+    %!var{$&lt;identifier&gt;} = $&lt;expression&gt;.ast;
+}
+
+method printout($/) {
+    say $&lt;expression&gt;.ast;
+}
+
+method expression($/) {
+    if $&lt;group&gt; {
+        $/.make: $&lt;group&gt;.ast
+    }
+    else {
+        my $result = $&lt;term&gt;[0].ast;
+
+        if $&lt;op&gt; {
+            my @ops = $&lt;op&gt;.map(~*);
+            my @vals = $&lt;term&gt;[1..*].map(*.ast);
+
+            for 0..@ops.elems - 1 -&gt; $c {
+                if @ops[$c] eq '+' {
+                    $result += @vals[$c];
+                }
+                else {
+                    $result -= @vals[$c];
+                }
+            }
+        }
+
+        $/.make: $result;
+    }
+}
+
+method term($/) {
+    my $result = $&lt;factor&gt;[0].ast;
+
+    if $&lt;op&gt; {
+        my @ops = $&lt;op&gt;.map(~*);
+        my @vals = $&lt;factor&gt;[1..*].map(*.ast);
+
+        for 0..@ops.elems - 1 -&gt; $c {
+            if @ops[$c] eq '*' {
+                $result *= @vals[$c];
+            }
+            else {
+                $result /= @vals[$c];
+            }
+        }
+    }
+
+    $/.make: $result;
+}
+
+method factor($/) {
+    if $&lt;identifier&gt; {
+        $/.make: %!var{~$&lt;identifier&gt;} // 0
+    }
+    elsif $&lt;value&gt; {
+        $/.make: $&lt;value&gt;.ast
+    }
+    elsif $&lt;group&gt; {
+        $/.make: $&lt;group&gt;.ast
+    }
+}
+
+method group($/) {
+    $/.make: $&lt;expression&gt;.ast
+}
+
+method identifier($/) {
+    $/.make: ~$0
+}
+
+method value($/) {
+    $/.make: +$0
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">use lib '.';
+use Lang::Grammar;
+use Lang::Actions;
+
+my $parsed = Lang::Grammar.parsefile(@*ARGS[0] // 'data/calc.lang', :actions(Lang::Actions.new()));
+say $parsed;
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
     
     
     <div class="post on-list coding">
@@ -1193,12 +1385,22 @@ for @$grammar_action -&gt; $p {
     </div>
     
     
-    <div class="post on-list /">
+    <div class="post on-list daily">
     
-      <h1 class="post-title"><a href="https://ohmypanda.github.io/bb/">140个字</a></h1>
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/books/">纸质书</a></h1>
       <div class="post-meta">
         
+          <span class="post-date">
+            2017-03-14 00:00:00
+          </span>
+        
 
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/%E7%BA%B8%E8%B4%A8%E4%B9%A6/">纸质书</a>&nbsp;
+          
+        </span>
         
       </div>
 
@@ -1206,7 +1408,8 @@ for @$grammar_action -&gt; $p {
 
       <div class="post-content $PostCate">
       
-        
+        <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0d/pg/x2_339385.jpg@596w_1l.jpg" alt="img"  /></p>
+
         
       
       </div>
@@ -1216,7 +1419,7 @@ for @$grammar_action -&gt; $p {
     
     <div class="post on-list /">
     
-      <h1 class="post-title"><a href="https://ohmypanda.github.io/search/">Search Results</a></h1>
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/bb/">140个字</a></h1>
       <div class="post-meta">
         
 
@@ -1244,6 +1447,13 @@ for @$grammar_action -&gt; $p {
         </a>
       </span>
     
+    
+      <span class="button next">
+        <a href="/page/3/">
+          <span class="button__text">下 一 页</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
     
   </div>
 </div>
@@ -1333,11 +1543,15 @@ for @$grammar_action -&gt; $p {
 
     
 
+    
+
+    
+
 
 <footer class="footer">
   <div class="footer__inner">
     <div class="copyright">
-      <span>共 36 篇文章</span><span> 5562 字</span>
+      <span>共 38 篇文章</span><span> 5562 字</span>
     </div>
     
       <div class="copyright">

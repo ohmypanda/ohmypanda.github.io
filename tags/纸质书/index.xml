@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>纸质书 on 焉知非鱼</title>
+    <link>https://ohmypanda.github.io/tags/%E7%BA%B8%E8%B4%A8%E4%B9%A6/</link>
+    <description>Recent content in 纸质书 on 焉知非鱼</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 14 Mar 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://ohmypanda.github.io/tags/%E7%BA%B8%E8%B4%A8%E4%B9%A6/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>纸质书</title>
+      <link>https://ohmypanda.github.io/books/</link>
+      <pubDate>Tue, 14 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ohmypanda.github.io/books/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

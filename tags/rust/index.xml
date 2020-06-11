@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Learning Rust</title>
+      <link>https://ohmypanda.github.io/learning-rust/</link>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ohmypanda.github.io/learning-rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Rust 生命周期</title>
       <link>https://ohmypanda.github.io/2020-06-11/</link>
       <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>

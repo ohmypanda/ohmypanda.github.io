@@ -7,7 +7,7 @@
             <link href="https://ohmypanda.github.io/atom.xml" rel="self" type="application/rss+xml" title="atom" />
             <link href="https://ohmypanda.github.io/" rel="alternate" type="text/html" title="HTML" />
             <link href="https://ohmypanda.github.io/index.json" rel="alternate" type="application/json" title="JSON" />
-    <updated>2020-06-11T21:43:21+08:00</updated>
+    <updated>2020-06-11T21:54:47+08:00</updated>
     
     
     
@@ -16,12 +16,49 @@
     
         
         <entry>
+            <title type="html"><![CDATA[Learning Rust]]></title>
+            <link href="https://ohmypanda.github.io/learning-rust/" rel="alternate" type="text/html" />
+            
+                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust 生命周期" />
+                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="语法" />
+                <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
+                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
+            
+                <id>https://ohmypanda.github.io/learning-rust/</id>
+            
+            
+            <published>2020-06-11T00:00:00+00:00</published>
+            <updated>2020-06-11T00:00:00+00:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gx/y3_276824.jpg" alt="img"  /></p>
+]]></content>
+            
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://ohmypanda.github.io/tags/rust" term="rust" label="Rust" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
             <title type="html"><![CDATA[Rust 生命周期]]></title>
             <link href="https://ohmypanda.github.io/2020-06-11/" rel="alternate" type="text/html" />
             
+                <link href="https://ohmypanda.github.io/learning-rust/" rel="related" type="text/html" title="Learning Rust" />
                 <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="语法" />
-                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
                 <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
+                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
             
                 <id>https://ohmypanda.github.io/2020-06-11/</id>
             
@@ -149,41 +186,6 @@
                             
                              
                                 <category scheme="https://ohmypanda.github.io/tags/music" term="music" label="music" />
-                            
-                        
-                    
-                
-            
-        </entry>
-    
-        
-        <entry>
-            <title type="html"><![CDATA[语法]]></title>
-            <link href="https://ohmypanda.github.io/2020-06-11/" rel="alternate" type="text/html" />
-            
-                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust 生命周期" />
-                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
-                <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
-            
-                <id>https://ohmypanda.github.io/2020-06-11/</id>
-            
-            
-            <published>2020-06-11T00:00:00+00:00</published>
-            <updated>2020-06-11T00:00:00+00:00</updated>
-            
-            
-            <content type="html"><![CDATA[<p>Rust 语法太难记了, 反直觉。又哭了。</p>
-]]></content>
-            
-                 
-                    
-                 
-                    
-                         
-                        
-                            
-                             
-                                <category scheme="https://ohmypanda.github.io/tags/rust" term="rust" label="Rust" />
                             
                         
                     
