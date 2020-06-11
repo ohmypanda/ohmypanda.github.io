@@ -12,12 +12,21 @@
     
     
     <item>
-      <title>生命周期</title>
+      <title>Rust 生命周期</title>
       <link>https://ohmypanda.github.io/2020-06-11/</link>
       <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://ohmypanda.github.io/2020-06-11/</guid>
       <description>生命周期太难了, 哭了。</description>
+    </item>
+    
+    <item>
+      <title>照片</title>
+      <link>https://ohmypanda.github.io/test-image/</link>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ohmypanda.github.io/test-image/</guid>
+      <description></description>
     </item>
     
   </channel>

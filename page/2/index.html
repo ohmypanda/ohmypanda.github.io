@@ -117,6 +117,62 @@
     
     <div class="post on-list coding">
     
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/parse-university/">解析校名</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 20:31:38
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样本">数据样本</h3>
+<pre><code>[Wang, Zhiguo; Zhao, Zhiguo] Hangzhou Normal Univ, Ctr Cognit &amp; Brain Disorders, Hangzhou, Zhejiang, Peoples R China; [Wang, Zhiguo; Theeuwes, Jan] Vrije Univ Amsterdam, Dept Cognit Psychol, Amsterdam, Netherlands
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar University {
+    token TOP             { ^ &lt;university&gt; $             }
+    token university      { [ &lt;bracket&gt; &lt;info&gt; ]+ % '; ' }
+    token bracket         { '[' &lt;studentname&gt;  '] '      }
+    token studentname     { &lt;stdname=.info&gt;+ % '; '      }
+    token info            { &lt;field&gt;+ % ', '              }
+    token field           { &lt;-[,\]\[;\n]&gt;+               }
+}
+
+grammar MyUniversity  is University {
+    token university      { &lt;info&gt;+ % '; ' }
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class MyUniversityAction {
+    ...
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">my $parsed = University::Grammar.parse($string);
+
+for @($parsed&lt;university&gt;&lt;info&gt;) -&gt; $u {
+    say $u&lt;field&gt;[0];
+}
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
       <h1 class="post-title"><a href="https://ohmypanda.github.io/key-value-pairs/">解析键值对儿</a></h1>
       <div class="post-meta">
         
@@ -789,11 +845,13 @@ for @$grammar_action -&gt; $p {
 
     
 
+    
+
 
 <footer class="footer">
   <div class="footer__inner">
     <div class="copyright">
-      <span>共 26 篇文章</span><span> 5454 字</span>
+      <span>共 27 篇文章</span><span> 5454 字</span>
     </div>
     
       <div class="copyright">
