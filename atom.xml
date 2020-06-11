@@ -7,7 +7,7 @@
             <link href="https://ohmypanda.github.io/atom.xml" rel="self" type="application/rss+xml" title="atom" />
             <link href="https://ohmypanda.github.io/" rel="alternate" type="text/html" title="HTML" />
             <link href="https://ohmypanda.github.io/index.json" rel="alternate" type="application/json" title="JSON" />
-    <updated>2020-06-10T22:50:44+08:00</updated>
+    <updated>2020-06-11T17:26:29+08:00</updated>
     
     
     
@@ -19,6 +19,7 @@
             <title type="html"><![CDATA[Rust]]></title>
             <link href="https://ohmypanda.github.io/2020-06-10/" rel="alternate" type="text/html" />
             
+                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
             
                 <id>https://ohmypanda.github.io/2020-06-10/</id>
             
@@ -27,10 +28,43 @@
             <updated>2020-06-10T00:00:00+00:00</updated>
             
             
-            <content type="html"><![CDATA[<p>太难了，Rust 太难了。
+            <content type="html"><![CDATA[<p>Rust 太难了。
 Rust 怎么这么难啊！
 真的太难了。
 磕学家才学得会。</p>
+]]></content>
+            
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://ohmypanda.github.io/tags/rust" term="rust" label="Rust" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Rust]]></title>
+            <link href="https://ohmypanda.github.io/2020-06-11/" rel="alternate" type="text/html" />
+            
+                <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
+            
+                <id>https://ohmypanda.github.io/2020-06-11/</id>
+            
+            
+            <published>2020-06-10T00:00:00+00:00</published>
+            <updated>2020-06-10T00:00:00+00:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>Rust 太难了, 哭了。</p>
 ]]></content>
             
                  
@@ -62,7 +96,7 @@ Rust 怎么这么难啊！
             <updated>2020-06-09T00:00:00+00:00</updated>
             
             
-            <content type="html"><![CDATA[<p>照片:</p>
+            <content type="html"><![CDATA[<p>2020年夏天, 天气晴, 大兴区。</p>
 <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/w7_268692.jpg@596w_1l.jpg" alt="img"  /></p>
 <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/wa_268705.jpg@596w_1l.jpg" alt="img"  /></p>
 <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gn/v2_268537.jpg@596w_1l.jpg" alt="img"  /></p>
@@ -271,156 +305,6 @@ my $ipconfig = IPConfig::Grammar.parsefile(
                             
                              
                                 <category scheme="https://ohmypanda.github.io/tags/awesome" term="awesome" label="Awesome" />
-                            
-                        
-                    
-                
-            
-        </entry>
-    
-        
-        <entry>
-            <title type="html"><![CDATA[使用 %% 提取文本块儿]]></title>
-            <link href="https://ohmypanda.github.io/extract-sections-with-double-percent/" rel="alternate" type="text/html" />
-            
-                <link href="https://ohmypanda.github.io/extract-sections-again/" rel="related" type="text/html" title="再用 %% 提取文本块儿" />
-                <link href="https://ohmypanda.github.io/extract-sections/" rel="related" type="text/html" title="提取文本块儿" />
-                <link href="https://ohmypanda.github.io/subparse/" rel="related" type="text/html" title="子解析" />
-                <link href="https://ohmypanda.github.io/parse-structured-text/" rel="related" type="text/html" title="解析结构化文本" />
-                <link href="https://ohmypanda.github.io/calc-lang/" rel="related" type="text/html" title="计算器" />
-            
-                <id>https://ohmypanda.github.io/extract-sections-with-double-percent/</id>
-            
-            
-            <published>2020-05-06T14:14:08+08:00</published>
-            <updated>2020-05-06T14:14:08+08:00</updated>
-            
-            
-            <content type="html"><![CDATA[<h3 id="数据样例">数据样例</h3>
-<p>section.txt 中的本文为样例数据:</p>
-<pre><code>123,456,789
-=begin code
-999,333,666
-145,123,120
-=end code
-10,20,30
-10,10,10
-=begin code
-567,555,578
-678,679,665
-710,720,715
-=end code
-321,654,987
-=begin code
-312,555
-=end code
-</code></pre><p>要求把 <code>=begin code</code> 和 <code>=end code</code> 之间的所有数字分别提取出来。</p>
-<h3 id="grammar">Grammar</h3>
-<p>Grammar 的结构如下, 其中 Section 目录下分别是 Grammar 和 Action 模块, data 目录下是样例数据 section.txt:</p>
-<pre><code>├── Section
-│   ├── Actions.pm6
-│   └── Grammar.pm6
-├── data
-│   ├── section.txt
-├── extract-section.p6
-</code></pre><pre><code class="language-perl6" data-lang="perl6">use Grammar::Debugger;
-use Grammar::Tracer;
-
-unit grammar Section::Grammar;
-
-token TOP {
-   ^  &lt;section&gt;+ %% &lt;separator&gt; $
-}
-
-token section {
-    &lt;line&gt;+
-}
-
-token line {
-   ^^ [\d+]+ %% ',' $$ \n
-}
-
-token separator {
-    |  ^^ '=begin code' $$ \n
-    |  ^^ '=end code' $$ \n*
-}
-</code></pre><p>其中 <code>Grammar::Debugger</code> 和 <code>Grammar::Tracer</code> 模块用于调试 grammar, 需要放在 grammar 模块的行首:</p>
-<pre><code class="language-perl6" data-lang="perl6">use Grammar::Debugger;
-use Grammar::Tracer;
-</code></pre><h3 id="action">Action</h3>
-<pre><code class="language-perl6" data-lang="perl6">unit class Section::Actions;
-
-method TOP($/) {
-     make $/.values».made;
-}
-
-method section($/) {
-    make ~$/.trim;
-}
-
-method line($/) {
-    make ~$/.trim;
-}
-
-method separator($/) {
-    make Empty;
-}
-</code></pre><h3 id="解析">解析</h3>
-<h4 id="不使用-action">不使用 Action</h4>
-<pre><code class="language-perl6" data-lang="perl6">use lib '.';
-use Section::Grammar;
-
-my $parsed = Section::Grammar.parsefile(@*ARGS[0] // 'data/section.txt');
-.Str.say for $parsed&lt;section&gt;;
-</code></pre><h4 id="输出">输出</h4>
-<pre><code>123,456,789
-
-999,333,666
-145,123,120
-
-10,20,30
-10,10,10
-
-567,555,578
-678,679,665
-710,720,715
-
-321,654,987
-
-312,555
-</code></pre><h4 id="使用-action">使用 Action</h4>
-<pre><code class="language-perl6" data-lang="perl6">use lib '.';
-use Section::Grammar;
-use Section::Actions;
-
-my $parsed = Section::Grammar.parsefile(
-    @*ARGS[0] // 'data/section.txt',
-    :actions(Section::Actions)
-).made;
-
-.Str.say for @$parsed;
-</code></pre><h4 id="输出-1">输出</h4>
-<pre><code>123,456,789
-999,333,666
-145,123,120
-10,20,30
-10,10,10
-567,555,578
-678,679,665
-710,720,715
-321,654,987
-312,555
-</code></pre>]]></content>
-            
-                 
-                    
-                 
-                    
-                         
-                        
-                            
-                             
-                                <category scheme="https://ohmypanda.github.io/tags/grammar" term="grammar" label="Grammar" />
                             
                         
                     

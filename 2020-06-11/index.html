@@ -2,30 +2,30 @@
 <html lang="zh-CN">
   <head>
     
-      <title>解析变量名 :: 焉知非鱼</title>
+      <title>Rust :: 焉知非鱼</title>
     
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="数据样例 @array %hash $sum Grammar grammar VariableNames { token variable { &amp;lt;sigil&amp;gt; &amp;lt;name&amp;gt; } token sigil { &#39;$&#39; | &#39;@&#39; | &#39;&amp;amp;&#39; | &#39;%&#39; | &#39;::&#39; } # [ ... ] are non-capturing groups token name { &amp;lt;identifier&amp;gt; [ &#39;::&#39; &amp;lt;identifier&amp;gt; ] * } # 标识符以字母开头 token identifier { &amp;lt;alpha&amp;gt; \w&#43; } } 匹配 my $match = VariableNames.parse(&amp;quot;@array&amp;quot;,:rule(&#39;variable&#39;)); say $match; 继承 # we inherit from the original grammar... grammar VARIABLENAMES is VariableNames { # ... and override that parsing rule that we want to change token identifier { # char classes are &amp;lt;[ ... ]&amp;gt; in Perl 6 &amp;lt;[A..Z]&amp;gt; &amp;lt;[A..Z0..9_]&amp;gt;* } } 匹配 my $test = VARIABLENAMES.parse(&amp;quot;%A_HASH_TABLE&amp;quot;,:rule(&#39;variable&#39;)); say $test; 继承 grammar LackMoney is VariableNames { token sigil { &#39;¢&#39; | &#39;@&#39; | &#39;&amp;amp;&#39; | &#39;%&#39; | &#39;::&#39; } } 匹配 # 继承以后, 带¢的变量能够解析, 带$的变量解析不了了 my $money = LackMoney.parse(&#39;$i_m_not_dollor&#39;,:rule(&#39;variable&#39;)); say so $money; # false"/>
+<meta name="description" content="Rust 太难了, 哭了。"/>
 <meta name="keywords" content=""/>
 <meta name="referrer" content="never" />
-<link rel="canonical" href="https://ohmypanda.github.io/parse-variable-name/" />
+<link rel="canonical" href="https://ohmypanda.github.io/2020-06-11/" />
 <link rel="stylesheet" href="https://ohmypanda.github.io/style.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:500&display=swap" media="print" onload="this.media='all'">
 <link rel="shortcut icon" href="https://ohmypanda.github.io/favicon.ico">
 
-<meta property="og:title" content="解析变量名" />
-<meta property="og:description" content="数据样例 @array %hash $sum Grammar grammar VariableNames { token variable { &lt;sigil&gt; &lt;name&gt; } token sigil { &#39;$&#39; | &#39;@&#39; | &#39;&amp;&#39; | &#39;%&#39; | &#39;::&#39; } # [ ... ] are non-capturing groups token name { &lt;identifier&gt; [ &#39;::&#39; &lt;identifier&gt; ] * } # 标识符以字母开头 token identifier { &lt;alpha&gt; \w&#43; } } 匹配 my $match = VariableNames.parse(&quot;@array&quot;,:rule(&#39;variable&#39;)); say $match; 继承 # we inherit from the original grammar... grammar VARIABLENAMES is VariableNames { # ... and override that parsing rule that we want to change token identifier { # char classes are &lt;[ ... ]&gt; in Perl 6 &lt;[A..Z]&gt; &lt;[A..Z0..9_]&gt;* } } 匹配 my $test = VARIABLENAMES.parse(&quot;%A_HASH_TABLE&quot;,:rule(&#39;variable&#39;)); say $test; 继承 grammar LackMoney is VariableNames { token sigil { &#39;¢&#39; | &#39;@&#39; | &#39;&amp;&#39; | &#39;%&#39; | &#39;::&#39; } } 匹配 # 继承以后, 带¢的变量能够解析, 带$的变量解析不了了 my $money = LackMoney.parse(&#39;$i_m_not_dollor&#39;,:rule(&#39;variable&#39;)); say so $money; # false" />
+<meta property="og:title" content="Rust" />
+<meta property="og:description" content="Rust 太难了, 哭了。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ohmypanda.github.io/parse-variable-name/" />
-<meta property="article:published_time" content="2020-05-05T19:41:58+08:00" />
-<meta property="article:modified_time" content="2020-05-05T19:41:58+08:00" />
+<meta property="og:url" content="https://ohmypanda.github.io/2020-06-11/" />
+<meta property="article:published_time" content="2020-06-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-06-10T00:00:00+00:00" />
 
 
 
     
-  <link rel="prefetch" href="https://ohmypanda.github.io/math-expression/">
-  <link rel="prefetch" href="https://ohmypanda.github.io/pair-bracket/">
+  <link rel="prefetch" href="https://ohmypanda.github.io/2020-06-10/">
+  <link rel="prefetch" href="https://ohmypanda.github.io/2020-06-09/">
 
   </head>
   <body class="">
@@ -106,7 +106,7 @@
   
   
   
-  <div class="post coding">
+  <div class="post chat">
     <div  class="breadcrumb">
   
 
@@ -127,99 +127,38 @@
 
 
 <li>
-  <a href="https://ohmypanda.github.io/posts/coding/">楽土</a>
+  <a href="https://ohmypanda.github.io/posts/chat/">图片</a>
 </li>
 
 
 <li class="active">
-  <a href="https://ohmypanda.github.io/parse-variable-name/">解析变量名</a>
+  <a href="https://ohmypanda.github.io/2020-06-11/">Rust</a>
 </li>
 
 </div>
 
 
   
-    <h2 class="post-title"><a href="https://ohmypanda.github.io/parse-variable-name/">解析变量名</a></h2>
-    <div class="post-meta">
-      
-        <span class="post-date">
-          2020-05-05 19:41:58
-        </span>
+            <div class="post-meta">
+        
+          <span class="post-date">
+            2020-06-10 00:00:00
+          </span>
+        
 
         
+        <span class="">
           
+            #<a href="https://ohmypanda.github.io/tags/rust/">Rust</a>&nbsp;
+          
+        </span>
         
-      <span> / <span class="valine-comment-count" data-xid="/parse-variable-name/">0</span> 评论 / <span id="/parse-variable-name/" class="leancloud_visitors" data-flag-title="解析变量名"><span class="leancloud-visitors-count">0</span> 阅读</span></span>
-        
-    </div>
+      </div>
+      <div class="post-content">
+        <a href="https://ohmypanda.github.io/2020-06-11/" rel="link"><img loading="lazy" class="post-avatar avatar" src=https://gravatar.loli.net/avatar/ba83fa02fc4b2ba621514941307e21be ></a>
+          <p>Rust 太难了, 哭了。</p>
 
-    
-  
-    <div class="post-content">
-      <h3 id="数据样例">数据样例</h3>
-<pre><code>@array
-%hash
-$sum
-</code></pre><h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar VariableNames {
-
-    token variable {
-        &lt;sigil&gt; &lt;name&gt;
-    }
-	
-    token sigil {
-        '$' | '@' | '&amp;' | '%' | '::'
-    }
-	
-	# [ ... ] are non-capturing groups
-	token name {
-        &lt;identifier&gt; 
-        [ '::' &lt;identifier&gt; ] * 
-    }
-	# 标识符以字母开头
-    token identifier {
-        &lt;alpha&gt; \w+
-    }
-}
-</code></pre><h4 id="匹配">匹配</h4>
-<pre><code class="language-perl6" data-lang="perl6">my $match = VariableNames.parse(&quot;@array&quot;,:rule('variable'));
-say $match;
-</code></pre><h3 id="继承">继承</h3>
-<pre><code class="language-perl6" data-lang="perl6"># we inherit from the original grammar...
-grammar VARIABLENAMES is VariableNames {
-    
-    # ... and override that parsing rule that we want to change
-    token identifier {
-        # char classes are &lt;[ ... ]&gt; in Perl 6
-        &lt;[A..Z]&gt; &lt;[A..Z0..9_]&gt;* 
-    }
-}
-</code></pre><h4 id="匹配-1">匹配</h4>
-<pre><code class="language-perl6" data-lang="perl6">my $test = VARIABLENAMES.parse(&quot;%A_HASH_TABLE&quot;,:rule('variable'));
-say $test;
-</code></pre><h3 id="继承-1">继承</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar LackMoney is VariableNames {
-    token sigil {
-        '¢' | '@' | '&amp;' | '%' | '::'
-    }
-}
-</code></pre><h4 id="匹配-2">匹配</h4>
-<pre><code class="language-perl6" data-lang="perl6"># 继承以后, 带¢的变量能够解析, 带$的变量解析不了了
-my $money = LackMoney.parse('$i_m_not_dollor',:rule('variable'));
-say so $money; # false
-</code></pre>
-      
-    </div>
-  
-    
-
-    
-      <span class="post-tags">
-        
-          #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
-        
-      </span>
-    
+      </div>
   
     <div class="clear"></div>
     
@@ -228,23 +167,23 @@ say so $money; # false
         <div class="pagination">
           <div class="pagination__title">
             
-              <a class="pagination__title-h" href="https://github.com/lmm214/immmmm/edit/master/content/posts/coding/parse-variable-name.md" target="_blank" rel="noopener">阅读更多</a>
+              <a class="pagination__title-h" href="https://github.com/lmm214/immmmm/edit/master/content/posts/chat/2020-06-11.md" target="_blank" rel="noopener">阅读更多</a>
             
             <hr />
           </div>
           <div class="pagination__buttons">
             
               <span class="button previous">
-                <a href="https://ohmypanda.github.io/math-expression/">
+                <a href="https://ohmypanda.github.io/2020-06-10/">
                   <span class="button__icon">←</span>
-                  <span class="button__text">解析数学表达式</span>
+                  <span class="button__text">Rust</span>
                 </a>
               </span>
             
             
               <span class="button next">
-                <a href="https://ohmypanda.github.io/pair-bracket/">
-                  <span class="button__text">解析括号对儿之间的数据</span>
+                <a href="https://ohmypanda.github.io/2020-06-09/">
+                  <span class="button__text">大兴</span>
                   <span class="button__icon">→</span>
                 </a>
               </span>
@@ -257,7 +196,7 @@ say so $money; # false
 
     
           <div class="pagination__title">
-       <span class="pagination__title-h"><span class="valine-comment-count" data-xid="/parse-variable-name/"></span> 条评论</span>
+       <span class="pagination__title-h"><span class="valine-comment-count" data-xid="/2020-06-11/"></span> 条评论</span>
        <hr />
   </div>
   <div id="comments"></div>
