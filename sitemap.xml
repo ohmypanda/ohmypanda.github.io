@@ -3,17 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ohmypanda.github.io/posts/daily/</loc>
+    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ohmypanda.github.io/tags/music/</loc>
     <lastmod>2020-06-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://ohmypanda.github.io/tags/rust/</loc>
-    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ohmypanda.github.io/posts/daily/</loc>
     <lastmod>2020-06-11T00:00:00+00:00</lastmod>
   </url>
   
@@ -250,6 +250,11 @@
   <url>
     <loc>https://ohmypanda.github.io/hongguan/</loc>
     <lastmod>2018-06-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ohmypanda.github.io/myself/</loc>
+    <lastmod>2017-05-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
