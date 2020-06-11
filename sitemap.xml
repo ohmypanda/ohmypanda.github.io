@@ -98,6 +98,21 @@
   </url>
   
   <url>
+    <loc>https://ohmypanda.github.io/tianchi/</loc>
+    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ohmypanda.github.io/cook/</loc>
+    <lastmod>2020-06-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ohmypanda.github.io/tags/%E9%94%85%E9%87%8C%E6%9C%89%E9%A5%AD/</loc>
+    <lastmod>2020-06-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ohmypanda.github.io/tags/grammar/</loc>
     <lastmod>2020-05-19T23:41:33+08:00</lastmod>
   </url>
@@ -218,16 +233,16 @@
   </url>
   
   <url>
+    <loc>https://ohmypanda.github.io/bb/</loc>
+  </url>
+  
+  <url>
     <loc>https://ohmypanda.github.io/categories/</loc>
   </url>
   
   <url>
     <loc>https://ohmypanda.github.io/search/</loc>
     <priority>0.1</priority>
-  </url>
-  
-  <url>
-    <loc>https://ohmypanda.github.io/bb/</loc>
   </url>
   
   <url>

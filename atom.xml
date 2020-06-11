@@ -7,7 +7,7 @@
             <link href="https://ohmypanda.github.io/atom.xml" rel="self" type="application/rss+xml" title="atom" />
             <link href="https://ohmypanda.github.io/" rel="alternate" type="text/html" title="HTML" />
             <link href="https://ohmypanda.github.io/index.json" rel="alternate" type="application/json" title="JSON" />
-    <updated>2020-06-11T20:52:25+08:00</updated>
+    <updated>2020-06-11T21:01:46+08:00</updated>
     
     
     
@@ -86,6 +86,7 @@
             <title type="html"><![CDATA[照片]]></title>
             <link href="https://ohmypanda.github.io/test-image/" rel="alternate" type="text/html" />
             
+                <link href="https://ohmypanda.github.io/tianchi/" rel="related" type="text/html" title="天池" />
             
                 <id>https://ohmypanda.github.io/test-image/</id>
             
@@ -157,8 +158,8 @@
             <link href="https://ohmypanda.github.io/2020-06-11/" rel="alternate" type="text/html" />
             
                 <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust 生命周期" />
-                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
                 <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
+                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
             
                 <id>https://ohmypanda.github.io/2020-06-11/</id>
             

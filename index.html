@@ -388,6 +388,70 @@
     </div>
     
     
+    <div class="post on-list daily">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/tianchi/">天池</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-06-04 00:00:00
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/%E9%A3%8E%E6%99%AF/">风景</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0d/yx/s7_80180.jpg@596w_1l.jpg" alt="img"  /></p>
+
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list daily">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/cook/">做饭</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-06-01 00:00:00
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/%E9%94%85%E9%87%8C%E6%9C%89%E9%A5%AD/">锅里有饭</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0f/xv/4e_184477.jpg@596w_1l.jpg" alt="img"  /></p>
+
+        
+      
+      </div>
+    
+    </div>
+    
+    
     <div class="post on-list coding">
     
       <h1 class="post-title"><a href="https://ohmypanda.github.io/extract-ipconfig/">提取 ipconfig 命令的部分输出</a></h1>
@@ -1369,142 +1433,6 @@ say $parsed;
     
     </div>
     
-    
-    <div class="post on-list coding">
-    
-      <h1 class="post-title"><a href="https://ohmypanda.github.io/parse-csv/">检测 CSV 是否有效</a></h1>
-      <div class="post-meta">
-        
-          <span class="post-date">
-            2020-05-05 21:13:45
-          </span>
-        
-
-        
-        <span class="">
-          
-            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
-          
-        </span>
-        
-      </div>
-
-      
-
-      <div class="post-content $PostCate">
-      
-        <h3 id="数据样例">数据样例</h3>
-<pre><code>Year,Make,Model,Length
-1997,Ford,E350,2.34
-2000,Mercury,Cougar,2.38
-</code></pre><h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar CSV {
-    token TOP { [ &lt;line&gt; \n? ]+ }
-
-    token line {
-        ^^            # Beginning of a line
-        &lt;value&gt;* % \, # Any number of &lt;value&gt;s with commas in `between` them
-        $$            # End of a line
-    }
-
-    token value {
-        [
-        | &lt;-[&quot;,\n]&gt;     # Anything not a double quote, comma or newline
-        | &lt;quoted-text&gt; # Or some quoted text
-        ]*              # Any number of times
-    }
-    token quoted-text {
-        \&quot;
-        [
-        | &lt;-[&quot;\\]&gt; # Anything not a &quot; or \
-        | '\&quot;'     # Or \&quot;, an escaped quotation mark
-        ]*         # Any number of times
-        \&quot;
-    }
-}
-</code></pre><h3 id="解析">解析</h3>
-<pre><code class="language-perl6" data-lang="perl6">say &quot;Valid CSV file!&quot; if CSV.parse( q:to/EOCSV/ );
-    Year,Make,Model,Length
-    1997,Ford,E350,2.34
-    2000,Mercury,Cougar,2.38
-    EOCSV
-</code></pre>
-        
-      
-      </div>
-    
-    </div>
-    
-    
-    <div class="post on-list coding">
-    
-      <h1 class="post-title"><a href="https://ohmypanda.github.io/card-game-with-action/">解析带 Action 的纸牌游戏</a></h1>
-      <div class="post-meta">
-        
-          <span class="post-date">
-            2020-05-05 20:56:13
-          </span>
-        
-
-        
-        <span class="">
-          
-            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
-          
-        </span>
-        
-      </div>
-
-      
-
-      <div class="post-content $PostCate">
-      
-        <h3 id="数据样例">数据样例</h3>
-<pre><code>a♥ a♥ 7♦ 8♣ j♥
-a♥ 7♥ 7♦ 8♣ j♥; 10♥ j♥ q♥ k♥ a♦
-</code></pre><h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar CardGame {
- 
-    rule TOP { ^ &lt;deal&gt; $ }
- 
-    rule deal {
-       :my %*PLAYED = ();
-       &lt;hand&gt;+ % ';'
-    }
- 
-    rule hand { [ &lt;card&gt; ]**5 }
-    token card {&lt;face&gt;&lt;suit&gt;}
- 
-    proto token suit {*}
-    token suit:sym&lt;♥&gt;  {&lt;sym&gt;}
-    token suit:sym&lt;♦&gt;  {&lt;sym&gt;}
-    token suit:sym&lt;♣&gt;  {&lt;sym&gt;}
-    token suit:sym&lt;♠&gt;  {&lt;sym&gt;}
- 
-    token face {:i &lt;[2..9]&gt; | 10 | j | q | k | a }
-}
-</code></pre><h3 id="action">Action</h3>
-<pre><code class="language-perl6" data-lang="perl6">class CardGame::Actions {
-    method card($/) {
-       my $card = $/.lc;
-       say &quot;Hey, there's an extra $card&quot;
-           if %*PLAYED{$card}++;
-   }
-}
-</code></pre><h3 id="解析">解析</h3>
-<pre><code class="language-perl6" data-lang="perl6">my $a = CardGame::Actions.new;
-say CardGame.parse(&quot;a♥ a♥ 7♦ 8♣ j♥&quot;, :actions($a));
-# &quot;Hey there's an extra a♥&quot;
-say CardGame.parse(&quot;a♥ 7♥ 7♦ 8♣ j♥; 10♥ j♥ q♥ k♥ a♦&quot;,
-                   :actions($a));
-# &quot;Hey there's an extra j♥&quot;
-</code></pre>
-        
-      
-      </div>
-    
-    </div>
-    
     <div class="pagination">
   <div class="pagination__buttons">
     
@@ -1590,11 +1518,15 @@ say CardGame.parse(&quot;a♥ 7♥ 7♦ 8♣ j♥; 10♥ j♥ q♥ k♥ a♦&quo
 
     
 
+    
+
+    
+
 
 <footer class="footer">
   <div class="footer__inner">
     <div class="copyright">
-      <span>共 29 篇文章</span><span> 5562 字</span>
+      <span>共 31 篇文章</span><span> 5562 字</span>
     </div>
     
       <div class="copyright">
