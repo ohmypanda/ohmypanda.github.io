@@ -7,7 +7,7 @@
             <link href="https://ohmypanda.github.io/atom.xml" rel="self" type="application/rss+xml" title="atom" />
             <link href="https://ohmypanda.github.io/" rel="alternate" type="text/html" title="HTML" />
             <link href="https://ohmypanda.github.io/index.json" rel="alternate" type="application/json" title="JSON" />
-    <updated>2020-06-11T19:31:59+08:00</updated>
+    <updated>2020-06-11T19:56:34+08:00</updated>
     
     
     
@@ -20,8 +20,8 @@
             <link href="https://ohmypanda.github.io/2020-06-11/" rel="alternate" type="text/html" />
             
                 <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="语法" />
-                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
                 <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
+                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
             
                 <id>https://ohmypanda.github.io/2020-06-11/</id>
             
@@ -55,8 +55,8 @@
             <link href="https://ohmypanda.github.io/2020-06-11/" rel="alternate" type="text/html" />
             
                 <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="生命周期" />
-                <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
                 <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
+                <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
             
                 <id>https://ohmypanda.github.io/2020-06-11/</id>
             
