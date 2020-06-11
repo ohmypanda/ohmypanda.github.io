@@ -19,7 +19,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ohmypanda.github.io/" />
-<meta property="og:updated_time" content="2020-06-10T22:49:00+00:00" />
+<meta property="og:updated_time" content="2020-06-11T00:00:00+00:00" />
 
 
 <link rel="alternate" type="application/rss+xml" href="/atom.xml" title="焉知非鱼" />
@@ -113,6 +113,38 @@
   
 
   <div class="posts">
+    
+    
+    <div class="post on-list daily">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/2020-06-11/">生命周期</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-06-11 00:00:00
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/rust/">Rust</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <p>生命周期太难了, 哭了。</p>
+
+        
+      
+      </div>
+    
+    </div>
     
     
     <div class="post on-list /">
@@ -1569,79 +1601,6 @@ disto=Rakudo Star
     
     </div>
     
-    
-    <div class="post on-list coding">
-    
-      <h1 class="post-title"><a href="https://ohmypanda.github.io/math-expression/">解析数学表达式</a></h1>
-      <div class="post-meta">
-        
-          <span class="post-date">
-            2020-05-05 20:01:16
-          </span>
-        
-
-        
-        <span class="">
-          
-            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
-          
-        </span>
-        
-      </div>
-
-      
-
-      <div class="post-content $PostCate">
-      
-        <h3 id="数据样例">数据样例</h3>
-<pre><code>3 + 4 - 5
-3 * 4 * 5
-4 + 5 * (1 + 3)
-</code></pre><h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar MathExpression {
-    token TOP    { &lt;sum&gt;              } 
-    rule sum     { &lt;product&gt;+ % '+'   } 
-    rule product { &lt;term&gt;+    % '*'   } 
-    rule term    { &lt;number&gt; | &lt;group&gt; } 
-    rule group   { '(' &lt;sum&gt; ')'      } 
-    token number { \d+                }
-}
-</code></pre><h3 id="action">Action</h3>
-<pre><code class="language-perl6" data-lang="perl6">class MathEvalAction {
-    method TOP($/) {
-        make $&lt;sum&gt;.made;
-    }
-    method sum($/) {
-        make [+] $&lt;product&gt;».made;
-    }
-    method product($/) {
-        make [*] $&lt;term&gt;».made;
-    }
-    method term($/) {
-        make $/.values[0].made;
-    }
-    method group($/) {
-        make $&lt;sum&gt;.made;
-    }
-    method number($/) {
-        make $/.Int;
-    }
-}
-</code></pre><h3 id="解析">解析</h3>
-<pre><code class="language-perl6" data-lang="perl6">my $match = MathExpression.parse(
-    '4 + 5 * (1 + 3)',
-    actions =&gt; MathEvalAction.new,
-);
-
-say $match.made; # Output: 24
-say $match.raku;
-</code></pre>
-        
-      
-      </div>
-    
-    </div>
-    
     <div class="pagination">
   <div class="pagination__buttons">
     
@@ -1717,11 +1676,13 @@ say $match.raku;
 
     
 
+    
+
 
 <footer class="footer">
   <div class="footer__inner">
     <div class="copyright">
-      <span>共 24 篇文章</span><span> 5441 字</span>
+      <span>共 25 篇文章</span><span> 5452 字</span>
     </div>
     
       <div class="copyright">

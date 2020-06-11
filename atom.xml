@@ -7,12 +7,46 @@
             <link href="https://ohmypanda.github.io/atom.xml" rel="self" type="application/rss+xml" title="atom" />
             <link href="https://ohmypanda.github.io/" rel="alternate" type="text/html" title="HTML" />
             <link href="https://ohmypanda.github.io/index.json" rel="alternate" type="application/json" title="JSON" />
-    <updated>2020-06-11T17:26:29+08:00</updated>
+    <updated>2020-06-11T19:23:57+08:00</updated>
     
     
     
     
         <id>https://ohmypanda.github.io/atom.xml</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[生命周期]]></title>
+            <link href="https://ohmypanda.github.io/2020-06-11/" rel="alternate" type="text/html" />
+            
+                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
+                <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
+            
+                <id>https://ohmypanda.github.io/2020-06-11/</id>
+            
+            
+            <published>2020-06-11T00:00:00+00:00</published>
+            <updated>2020-06-11T00:00:00+00:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>生命周期太难了, 哭了。</p>
+]]></content>
+            
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://ohmypanda.github.io/tags/rust" term="rust" label="Rust" />
+                            
+                        
+                    
+                
+            
+        </entry>
     
         
         <entry>
@@ -273,38 +307,6 @@ my $ipconfig = IPConfig::Grammar.parsefile(
                             
                              
                                 <category scheme="https://ohmypanda.github.io/tags/grammar" term="grammar" label="Grammar" />
-                            
-                        
-                    
-                
-            
-        </entry>
-    
-        
-        <entry>
-            <title type="html"><![CDATA[Awesome]]></title>
-            <link href="https://ohmypanda.github.io/2020-05-11/" rel="alternate" type="text/html" />
-            
-            
-                <id>https://ohmypanda.github.io/2020-05-11/</id>
-            
-            
-            <published>2020-05-11T00:00:00+00:00</published>
-            <updated>2020-05-11T00:00:00+00:00</updated>
-            
-            
-            <content type="html"><![CDATA[<p>专门用于记录 Raku 中的 Awesome。</p>
-]]></content>
-            
-                 
-                    
-                 
-                    
-                         
-                        
-                            
-                             
-                                <category scheme="https://ohmypanda.github.io/tags/awesome" term="awesome" label="Awesome" />
                             
                         
                     

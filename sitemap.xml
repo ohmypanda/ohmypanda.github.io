@@ -3,18 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://ohmypanda.github.io/about/</loc>
-    <lastmod>2020-06-10T22:49:00+00:00</lastmod>
+    <loc>https://ohmypanda.github.io/tags/rust/</loc>
+    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ohmypanda.github.io/posts/daily/</loc>
+    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ohmypanda.github.io/tags/</loc>
+    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ohmypanda.github.io/2020-06-11/</loc>
+    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://ohmypanda.github.io/</loc>
-    <lastmod>2020-06-10T22:49:00+00:00</lastmod>
+    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://ohmypanda.github.io/tags/rust/</loc>
-    <lastmod>2020-06-10T00:00:00+00:00</lastmod>
+    <loc>https://ohmypanda.github.io/about/</loc>
+    <lastmod>2020-06-10T22:49:00+00:00</lastmod>
   </url>
   
   <url>
@@ -29,11 +44,6 @@
   
   <url>
     <loc>https://ohmypanda.github.io/posts/chat/</loc>
-    <lastmod>2020-06-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ohmypanda.github.io/tags/</loc>
     <lastmod>2020-06-10T00:00:00+00:00</lastmod>
   </url>
   
@@ -186,10 +196,6 @@
   
   <url>
     <loc>https://ohmypanda.github.io/posts/</loc>
-  </url>
-  
-  <url>
-    <loc>https://ohmypanda.github.io/posts/daily/</loc>
   </url>
   
   <url>
