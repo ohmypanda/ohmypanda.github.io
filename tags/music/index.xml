@@ -1,42 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rust on 焉知非鱼</title>
-    <link>https://ohmypanda.github.io/posts/daily/</link>
-    <description>Recent content in Rust on 焉知非鱼</description>
+    <title>music on 焉知非鱼</title>
+    <link>https://ohmypanda.github.io/tags/music/</link>
+    <description>Recent content in music on 焉知非鱼</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Thu, 11 Jun 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://ohmypanda.github.io/posts/daily/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ohmypanda.github.io/tags/music/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Rust 生命周期</title>
-      <link>https://ohmypanda.github.io/2020-06-11/</link>
-      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://ohmypanda.github.io/2020-06-11/</guid>
-      <description>生命周期太难了, 哭了。</description>
-    </item>
-    
-    <item>
-      <title>Zz</title>
-      <link>https://ohmypanda.github.io/elink-paper/</link>
-      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://ohmypanda.github.io/elink-paper/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>照片</title>
-      <link>https://ohmypanda.github.io/test-image/</link>
-      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://ohmypanda.github.io/test-image/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>网易云音乐歌单</title>

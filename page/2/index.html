@@ -117,6 +117,116 @@
     
     <div class="post on-list coding">
     
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/card-game/">解析纸牌游戏</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 20:53:19
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>2♥ 5♥ 7♦ 8♣ 9♠
+2♥ a♥ 7♦ 8♣ j♥
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar CardGame {
+ 
+    rule TOP { ^ &lt;deal&gt; $ }
+ 
+    rule deal {
+        &lt;hand&gt;+ % ';'
+    }
+ 
+    rule hand { [ &lt;card&gt; ]**5 }
+    token card {&lt;face&gt;&lt;suit&gt;}
+ 
+    proto token suit {*}
+    token suit:sym&lt;♥&gt;  {&lt;sym&gt;}
+    token suit:sym&lt;♦&gt;  {&lt;sym&gt;}
+    token suit:sym&lt;♣&gt;  {&lt;sym&gt;}
+    token suit:sym&lt;♠&gt;  {&lt;sym&gt;}
+ 
+    token face {:i &lt;[2..9]&gt; | 10 | j | q | k | a }
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">say CardGame.parse(&quot;2♥ 5♥ 7♦ 8♣ 9♠&quot;);
+say CardGame.parse(&quot;2♥ a♥ 7♦ 8♣ j♥&quot;);
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/alaways-succeed-assertion/">Alaways Succeed Assertion</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 20:40:19
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="数据样例">数据样例</h3>
+<pre><code>255 435 777
+123 456 789
+098 764 125
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar Digifier {
+    rule TOP {
+        [ &lt;.succ&gt; &lt;digit&gt;+ ]+
+    }
+    token succ   { &lt;?&gt; }
+    token digit { &lt;[0..9]&gt; }
+}
+</code></pre><h3 id="action">Action</h3>
+<pre><code class="language-perl6" data-lang="perl6">class Devanagari {
+    has @!numbers;
+    method digit ($/) { @!numbers.tail ~= &lt;零 一 二 三 四 五 六 七 八 九&gt;[$/] }
+    method succ  ($)  { @!numbers.push: ''     }
+    method TOP   ($/) { make @!numbers[^(*-1)] }
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">say Digifier.parse('255 435 777', actions =&gt; Devanagari.new).made;
+# OUTPUT: 二五五 四三五 七七七
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="post on-list coding">
+    
       <h1 class="post-title"><a href="https://ohmypanda.github.io/parse-university/">解析校名</a></h1>
       <div class="post-meta">
         
@@ -847,11 +957,15 @@ for @$grammar_action -&gt; $p {
 
     
 
+    
+
+    
+
 
 <footer class="footer">
   <div class="footer__inner">
     <div class="copyright">
-      <span>共 27 篇文章</span><span> 5454 字</span>
+      <span>共 29 篇文章</span><span> 5562 字</span>
     </div>
     
       <div class="copyright">
