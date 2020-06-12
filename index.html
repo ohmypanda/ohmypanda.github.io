@@ -19,7 +19,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ohmypanda.github.io/" />
-<meta property="og:updated_time" content="2020-06-11T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-06-12T00:00:00+00:00" />
 
 
 <link rel="alternate" type="application/rss+xml" href="/atom.xml" title="焉知非鱼" />
@@ -113,6 +113,38 @@
   
 
   <div class="posts">
+    
+    
+    <div class="post on-list daily">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/moutian/">山下</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-06-12 00:00:00
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/%E9%A3%8E%E6%99%AF/">风景</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0f/yz/sr_82223.jpg@596w_1l.jpg" alt="img"  /></p>
+
+        
+      
+      </div>
+    
+    </div>
     
     
     <div class="post on-list daily">
@@ -1117,100 +1149,6 @@ say RepeatChar.subparse(
     
     </div>
     
-    
-    <div class="post on-list coding">
-    
-      <h1 class="post-title"><a href="https://ohmypanda.github.io/parse-structured-text/">解析结构化文本</a></h1>
-      <div class="post-meta">
-        
-          <span class="post-date">
-            2020-05-05 21:46:27
-          </span>
-        
-
-        
-        <span class="">
-          
-            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
-          
-        </span>
-        
-      </div>
-
-      
-
-      <div class="post-content $PostCate">
-      
-        <h3 id="数据样例">数据样例</h3>
-<pre><code>[28/04/2015 12:32] Title1
-
-content line 1
-content line 2
-content line 3
-content line 4
-content line 5
-
-[28/04/2015 12:16] Title2
-
-content line 6
-content line 7
-
-[27/04/2015 17:30] ​Title3
-
-content line 8
-content line 9
-content line 10
-
-</code></pre><h3 id="grammar">Grammar</h3>
-<pre><code class="language-perl6" data-lang="perl6">grammar StructedText {
-    token TOP { ^ &lt;entry&gt;+ $ }
-    token entry {
-        &lt;head&gt; \s*   # 每一项有一个标题
-        &lt;line&gt;+ \s*  # 每个标题下面有很多行
-    }
-    
-    token head     { '[' &lt;datetime&gt; ']' \s+ &lt;title&gt; }
-    token datetime {  &lt;filedate&gt; \s+  &lt;filetime&gt; }
-    token filedate { [\d+]+ % '/' }
-    token filetime { [\d+]+ % ':' }
-    token title    { \N+          }
-    token line  {
-        [
-		    &lt;!head&gt;       # 前面不是 head 标题
-            .             # 点号匹配换行符
-        ]+
-    }
-}
-</code></pre><h3 id="action">Action</h3>
-<pre><code class="language-perl6" data-lang="perl6">class StructedText::Actions {
-    method line    ($/) { $/.make: ~$/                            }
-    method filedate($/) { $/.make: ~$/.subst(rx/&lt;[:/]&gt;/, '-', :g) }
-    method head    ($/) { $/.make: ~$/.subst(rx/&lt;[:/]&gt;/, '-', :g) }
-    method entry   ($/) { make $&lt;head&gt;.ast =&gt; $&lt;line&gt;».made;      }
-    method TOP     ($/) { $/.make: $&lt;entry&gt;».ast;                 }    
-}
-</code></pre><h3 id="解析">解析</h3>
-<pre><code class="language-perl6" data-lang="perl6">my $actions = StructedText::Actions.new;
-my $parsed = StructedText.parsefile('sample.txt', :$actions).made;
-if $parsed {
-    for @$parsed -&gt; $e {
-        my $filename = ~$e.key.match(/'[' &lt;( &lt;-[\[\]]&gt;+ )&gt; ']'/)  ~ &quot;.txt&quot;;
-        my $fh = open $filename, :w; 
-        $fh.say: ~$e.key;
-        for $e.value -&gt; $v {
-            $fh.say: $v;
-        }
-        $fh.close;
-        say &quot;生成文件 $filename &quot;;       
-    }
-}
-</code></pre>
-        
-      
-      </div>
-    
-    </div>
-    
     <div class="pagination">
   <div class="pagination__buttons">
     
@@ -1314,11 +1252,13 @@ if $parsed {
 
     
 
+    
+
 
 <footer class="footer">
   <div class="footer__inner">
     <div class="copyright">
-      <span>共 38 篇文章</span><span> 5562 字</span>
+      <span>共 39 篇文章</span><span> 5562 字</span>
     </div>
     
       <div class="copyright">
