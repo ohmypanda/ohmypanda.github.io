@@ -19,7 +19,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ohmypanda.github.io/" />
-<meta property="og:updated_time" content="2020-06-12T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-06-26T00:00:00+00:00" />
 
 
 <link rel="alternate" type="application/rss+xml" href="/atom.xml" title="焉知非鱼" />
@@ -113,6 +113,76 @@
   
 
   <div class="posts">
+    
+    
+    <div class="post on-list coding">
+    
+      <h1 class="post-title"><a href="https://ohmypanda.github.io/subparse/">子解析</a></h1>
+      <div class="post-meta">
+        
+          <span class="post-date">
+            2020-05-05 21:51:42
+          </span>
+        
+
+        
+        <span class="">
+          
+            #<a href="https://ohmypanda.github.io/tags/grammar/">Grammar</a>&nbsp;
+          
+        </span>
+        
+      </div>
+
+      
+
+      <div class="post-content $PostCate">
+      
+        <h3 id="子解析">子解析</h3>
+<p>游标不一定要到达字符串的末尾才算成功。也就是说，它不一定要匹配整个字符串。</p>
+<p><code>subparse</code> 总是返回一个 <strong>Match</strong> 对象</p>
+<pre><code class="language-perl6" data-lang="perl6">method subparse(
+    $target, 
+    :$rule = 'TOP', 
+    Capture() :$args = \(),  
+    Mu :$actions = Mu, 
+    *%opt
+)
+</code></pre><h3 id="grammar">Grammar</h3>
+<pre><code class="language-perl6" data-lang="perl6">grammar RepeatChar {
+    token start($character) { $character+ }
+}
+</code></pre><h3 id="解析">解析</h3>
+<pre><code class="language-perl6" data-lang="perl6">say RepeatChar.subparse(
+    'bbbabb', 
+    :rule('start'), 
+    :args(\('b'))
+);          # ｢bbb｣
+
+say RepeatChar.parse(
+    'bbbabb', 
+    :rule('start'), 
+    :args(\('b'))
+);          # Nil
+
+say RepeatChar.subparse(
+    'bbbabb', 
+    :rule('start'), 
+    :args(\('a'))
+);          # &lt;failed match&gt;
+
+say RepeatChar.subparse(
+    'bbbabb', 
+    :rule('start'), 
+    :args(\('a')), 
+    :pos(3)
+);          # ｢a｣
+</code></pre>
+        
+      
+      </div>
+    
+    </div>
     
     
     <div class="post on-list coding">
@@ -1478,38 +1548,6 @@ for @$grammar_action -&gt; $p {
     
     </div>
     
-    
-    <div class="post on-list daily">
-    
-      <h1 class="post-title"><a href="https://ohmypanda.github.io/books/">纸质书</a></h1>
-      <div class="post-meta">
-        
-          <span class="post-date">
-            2017-03-14 00:00:00
-          </span>
-        
-
-        
-        <span class="">
-          
-            #<a href="https://ohmypanda.github.io/tags/%E7%BA%B8%E8%B4%A8%E4%B9%A6/">纸质书</a>&nbsp;
-          
-        </span>
-        
-      </div>
-
-      
-
-      <div class="post-content $PostCate">
-      
-        <p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0d/pg/x2_339385.jpg@596w_1l.jpg" alt="img"  /></p>
-
-        
-      
-      </div>
-    
-    </div>
-    
     <div class="pagination">
   <div class="pagination__buttons">
     
@@ -1622,11 +1660,13 @@ for @$grammar_action -&gt; $p {
 
     
 
+    
+
 
 <footer class="footer">
   <div class="footer__inner">
     <div class="copyright">
-      <span>共 39 篇文章</span><span> 5562 字</span>
+      <span>共 40 篇文章</span><span> 5606 字</span>
     </div>
     
       <div class="copyright">

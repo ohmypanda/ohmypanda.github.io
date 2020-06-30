@@ -6,10 +6,19 @@
     <description>Recent content in 图片 on 焉知非鱼</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 10 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 26 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://ohmypanda.github.io/posts/chat/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rust</title>
+      <link>https://ohmypanda.github.io/2020-06-26/</link>
+      <pubDate>Fri, 26 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ohmypanda.github.io/2020-06-26/</guid>
+      <description>Rust 太难了, 哭了。有一块儿爬六峰山的吗？拍照留恋。</description>
+    </item>
     
     <item>
       <title>Rust</title>

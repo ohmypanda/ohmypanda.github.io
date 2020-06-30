@@ -7,12 +7,49 @@
             <link href="https://ohmypanda.github.io/atom.xml" rel="self" type="application/rss+xml" title="atom" />
             <link href="https://ohmypanda.github.io/" rel="alternate" type="text/html" title="HTML" />
             <link href="https://ohmypanda.github.io/index.json" rel="alternate" type="application/json" title="JSON" />
-    <updated>2020-06-12T17:20:09+08:00</updated>
+    <updated>2020-06-30T17:15:07+08:00</updated>
     
     
     
     
         <id>https://ohmypanda.github.io/atom.xml</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Rust]]></title>
+            <link href="https://ohmypanda.github.io/2020-06-26/" rel="alternate" type="text/html" />
+            
+                <link href="https://ohmypanda.github.io/learning-rust/" rel="related" type="text/html" title="Learning Rust" />
+                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust 生命周期" />
+                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="语法" />
+                <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
+                <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
+            
+                <id>https://ohmypanda.github.io/2020-06-26/</id>
+            
+            
+            <published>2020-06-26T00:00:00+00:00</published>
+            <updated>2020-06-26T00:00:00+00:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>Rust 太难了, 哭了。有一块儿爬六峰山的吗？拍照留恋。</p>
+]]></content>
+            
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://ohmypanda.github.io/tags/rust" term="rust" label="Rust" />
+                            
+                        
+                    
+                
+            
+        </entry>
     
         
         <entry>
@@ -58,8 +95,8 @@
             
                 <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust 生命周期" />
                 <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="语法" />
-                <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
                 <link href="https://ohmypanda.github.io/2020-06-11/" rel="related" type="text/html" title="Rust" />
+                <link href="https://ohmypanda.github.io/2020-06-10/" rel="related" type="text/html" title="Rust" />
             
                 <id>https://ohmypanda.github.io/learning-rust/</id>
             
@@ -148,43 +185,6 @@
                             
                              
                                 <category scheme="https://ohmypanda.github.io/tags/%E7%94%B5%E7%BA%B8%E4%B9%A6" term="%E7%94%B5%E7%BA%B8%E4%B9%A6" label="电纸书" />
-                            
-                        
-                    
-                
-            
-        </entry>
-    
-        
-        <entry>
-            <title type="html"><![CDATA[照片]]></title>
-            <link href="https://ohmypanda.github.io/test-image/" rel="alternate" type="text/html" />
-            
-                <link href="https://ohmypanda.github.io/tianchi/" rel="related" type="text/html" title="天池" />
-                <link href="https://ohmypanda.github.io/cloud01/" rel="related" type="text/html" title="曙暮光条" />
-                <link href="https://ohmypanda.github.io/huanlegu/" rel="related" type="text/html" title="欢乐谷" />
-                <link href="https://ohmypanda.github.io/dishuihu/" rel="related" type="text/html" title="滴水湖" />
-                <link href="https://ohmypanda.github.io/hongguan/" rel="related" type="text/html" title="上海" />
-            
-                <id>https://ohmypanda.github.io/test-image/</id>
-            
-            
-            <published>2020-06-11T00:00:00+00:00</published>
-            <updated>2020-06-11T00:00:00+00:00</updated>
-            
-            
-            <content type="html"><![CDATA[<p><img loading='lazy' src="https://s3-img.meituan.net/v1/mss_3d027b52ec5a4d589e68050845611e68/ff/n0/0k/gx/fc_276347.jpg@596w_1l.jpg" alt="img"  /></p>
-]]></content>
-            
-                 
-                    
-                 
-                    
-                         
-                        
-                            
-                             
-                                <category scheme="https://ohmypanda.github.io/tags/%E9%A3%8E%E6%99%AF" term="%E9%A3%8E%E6%99%AF" label="风景" />
                             
                         
                     
